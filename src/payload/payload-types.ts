@@ -195,23 +195,38 @@ export interface Category {
   updatedAt: string;
   createdAt: string;
 }
+
+export interface Variant {
+  id: string;
+  sku: string;
+  price: number;
+  compareAtPrice: number;
+  stock: number | null;
+  size: {
+    title: string;
+    value: string;
+  };
+  color: {
+    title: string;
+    value: string;
+  };
+}
+
+export interface GroupedVariants {
+  color: {
+    title: string;
+    value: string;
+  };
+  variants: Variant[];
+}
+
 export interface Product {
   id: string;
   title: string;
   description: string;
   price: number;
   compareAtPrice?: number | null;
-  variants?:
-    | {
-        size: string | Size;
-        color: string | Color;
-        price: number;
-        compareAtPrice?: number | null;
-        sku: string;
-        stock?: number | null;
-        id?: string | null;
-      }[]
-    | null;
+  variants?: (string | Variant)[] | null;
   publishedOn?: string | null;
   images?:
     | {
