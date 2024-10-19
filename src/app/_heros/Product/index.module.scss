@@ -1,0 +1,139 @@
+@use '../../_css/common.scss' as *;
+
+.productHero {
+  display: grid;
+  gap: 30px;
+  width: 100%;
+  @include small-break {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mediaWrapper {
+  position: relative;
+  min-height: 400px;
+  background-color: var(--color-dark-50);
+
+  @include small-break {
+    min-height: 250px;
+  }
+}
+
+.image {
+  padding: 24px;
+  object-fit: contain;
+  aspect-ratio: 1/1;
+  max-width: 100%;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.categoryWrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+  margin-top: 8px;
+}
+
+.category {
+  font-size: 16px;
+}
+
+.stock {
+  color: var(--color-green-500);
+}
+
+.separator {
+  color: var(--color-gray-500);
+  padding: 0 10px;
+}
+
+.description {
+  padding: 30px 0;
+}
+
+.heroContainer {
+  padding: 16px 64px; /* Adjust as needed */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  overflow-x: hidden; // Prevent any horizontal overflow
+
+  @include small-break {
+    padding: 36px 4px; /* Adjust as needed */
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroContainer {
+    flex-direction: row;
+  }
+}
+
+.heroImageContainer {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .heroImageContainer {
+    width: 50%;
+    position: sticky;
+    top: 80px;
+    height: max-content;
+  }
+}
+
+.heroTextContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .heroTextContainer {
+    width: 50%;
+  }
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.heroDescription {
+  color: var(--theme-elevation-800);
+}
+
+.heroDivider {
+  height: 2px;
+  background-color: var(--theme-elevation-50);
+}
+
+.heroPrice {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.heroPriceContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.heroComparePrice {
+  font-size: 1rem;
+  // color: #6b7280; /* Equivalent to Tailwind's gray-500 */
+  text-decoration: line-through;
+  font-weight: 300;
+}
+
+.heroReviewsTitle {
+  font-weight: 200; /* Equivalent to Tailwind's font-medium */
+  margin-top: 24px;
+}

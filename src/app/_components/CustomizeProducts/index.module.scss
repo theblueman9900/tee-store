@@ -1,0 +1,61 @@
+/* CustomizeProducts.module.scss */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Equivalent to Tailwind's gap-6 */
+}
+
+.optionGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Equivalent to Tailwind's gap-4 */
+}
+
+.optionTitle {
+  font-weight: 500; /* Equivalent to Tailwind's font-medium */
+}
+
+.choices {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Equivalent to Tailwind's gap-3 */
+}
+
+.colorChoice {
+  width: 2rem; /* Equivalent to Tailwind's w-8 */
+  height: 2rem; /* Equivalent to Tailwind's h-8 */
+  border-radius: 9999px; /* Equivalent to Tailwind's rounded-full */
+  border: 1px solid #d1d5db; /* Equivalent to Tailwind's ring-1 ring-gray-300 */
+  position: relative;
+}
+
+.colorChoiceSelected {
+  position: absolute;
+  width: 2.5rem; /* Equivalent to Tailwind's w-10 */
+  height: 2.5rem; /* Equivalent to Tailwind's h-10 */
+  border-radius: 9999px; /* Equivalent to Tailwind's rounded-full */
+  border: 2px solid #000; /* Equivalent to Tailwind's ring-2 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.colorChoiceDisabled {
+  position: absolute;
+  width: 2.5rem; /* Equivalent to Tailwind's w-10 */
+  height: 0.125rem; /* Equivalent to Tailwind's h-[2px] */
+  background-color: #f87171; /* Equivalent to Tailwind's bg-red-400 */
+  transform: rotate(45deg);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.sizeChoice {
+  border: 1px solid #f35c7a; /* Equivalent to Tailwind's ring-1 ring-lama */
+  color: #f35c7a; /* Equivalent to Tailwind's text-lama */
+  border-radius: 0.375rem; /* Equivalent to Tailwind's rounded-md */
+  padding: 0.25rem 1rem; /* Equivalent to Tailwind's py-1 px-4 */
+  font-size: 0.875rem; /* Equivalent to Tailwind's text-sm */
+}

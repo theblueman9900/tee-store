@@ -1,0 +1,39 @@
+/* Reviews.module.scss */
+
+.reviewsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Space between reviews */
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Space between avatar and name */
+  font-weight: 500;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.stars {
+  display: flex;
+  gap: 8px; /* Space between stars */
+}
+
+.media {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between media items */
+}
+
+.mediaImage {
+  object-fit: cover;
+}

@@ -1,0 +1,38 @@
+/* ProductImages.module.scss */
+
+.productImagesContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.mainImageContainer {
+  height: 500px;
+  position: relative;
+}
+
+.mainImage {
+  object-fit: cover;
+  border-radius: 0.375rem; /* Tailwind's rounded-md */
+}
+
+.thumbnailContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px; /* Equivalent to Tailwind's gap-4 */
+  margin-top: 32px; /* Equivalent to Tailwind's mt-8 */
+}
+
+.thumbnail {
+  width: 25%; /* Equivalent to Tailwind's w-1/4 */
+  height: 128px; /* Equivalent to Tailwind's h-32 */
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  gap: 16px; /* Space between thumbnail image and container edge */
+  margin-top: 32px; /* Equivalent to Tailwind's mt-8 */
+}
+
+.thumbnailImage {
+  object-fit: cover;
+  border-radius: 0.375rem; /* Tailwind's rounded-md */
+}
