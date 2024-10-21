@@ -117,7 +117,7 @@ export const CheckoutPage: React.FC<{
               maxWidth: '900px',
               margin: '0 auto',
               padding: '20px',
-              border: '1px solid #ddd',
+              border: '1px solid var(--theme-elevation-300)',
               borderRadius: '10px',
               display: 'flex',
               flexDirection: 'column',
@@ -179,7 +179,7 @@ export const CheckoutPage: React.FC<{
           }}
         >
           <h3 className={classes.payment}>Payment Details</h3>
-          <Checkout />
+          <Checkout cartTotal={cartTotal} />
         </div>
       )}
     </div>
