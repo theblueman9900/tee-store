@@ -210,6 +210,16 @@ export interface Category {
   updatedAt: string;
   createdAt: string;
 }
+
+export interface Variant {
+  id: string;
+  size: string | Size;
+  color: string | Color;
+  price: number;
+  compareAtPrice?: number | null;
+  sku: string;
+  stock?: number | null;
+}
 export interface Product {
   id: string;
   title: string;
@@ -594,5 +604,5 @@ export interface Footer {
 
 
 declare module 'payload' {
-  export interface GeneratedTypes extends Config {}
+  export interface _GeneratedTypes extends Config {}
 }

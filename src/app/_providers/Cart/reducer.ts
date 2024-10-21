@@ -40,9 +40,11 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
       ].reduce((acc: CartItem[], item) => {
         // remove duplicates
         const productId = typeof item.product === 'string' ? item.product : item?.product?.id
-
-        const indexInAcc = acc.findIndex(({ product }) =>
-          typeof product === 'string' ? product === productId : product?.id === productId,
+        const productSku = typeof item.variant === 'string' ? item.variant : item?.variant?.sku
+        const indexInAcc = acc.findIndex(({ product, variant }) =>
+          typeof product === 'string'
+            ? product === productId && (variant as Variant)?.sku === productSku
+            : product?.id === productId && (variant as Variant)?.sku === productSku,
         ) // eslint-disable-line function-paren-newline
 
         if (indexInAcc > -1) {
