@@ -17,6 +17,7 @@ import { CheckoutForm } from '../CheckoutForm'
 import { CheckoutItem } from '../CheckoutItem'
 
 import classes from './index.module.scss'
+import Checkout from '../Checkout'
 
 const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 const stripe = loadStripe(apiKey)
@@ -78,109 +79,158 @@ export const CheckoutPage: React.FC<{
 
   return (
     <Fragment>
-      {cartIsEmpty && (
-        <div>
-          {'Your '}
-          <Link href="/cart">cart</Link>
-          {' is empty.'}
-          {typeof productsPage === 'object' && productsPage?.slug && (
-            <Fragment>
-              <Link href={`/${productsPage.slug}`}>Continue shopping?</Link>
-            </Fragment>
-          )}
-        </div>
-      )}
+    {cartIsEmpty && (
+      <div>
+        {'Your '}
+        <Link href="/cart">cart</Link>
+        {' is empty.'}
+        {typeof productsPage === 'object' && productsPage?.slug && (
+          <Fragment>
+            <Link href={`/${productsPage.slug}`}>Continue shopping?</Link>
+          </Fragment>
+        )}
+      </div>
+    )}
+
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: '1rem',
+      }}
+    >
       {!cartIsEmpty && (
-        <div className={classes.items}>
-          <div className={classes.header}>
-            <p>Products</p>
-            <div className={classes.headerItemDetails}>
-              <p></p>
-              <p className={classes.quantity}>Quantity</p>
-            </div>
-            <p className={classes.subtotal}>Subtotal</p>
-          </div>
-
-          <ul>
-            {cart?.items?.map((item, index) => {
-              if (typeof item.product === 'object') {
-                const {
-                  quantity,
-                  product,
-                  variant,
-                  product: { title, meta },
-                } = item
-
-                if (!quantity) return null
-
-                const metaImage = meta?.image
-
-                return (
-                  <Fragment key={index}>
-                    <CheckoutItem
-                      product={product}
-                      title={title}
-                      metaImage={metaImage}
-                      quantity={quantity}
-                      index={index}
-                      variant={variant}
-                    />
-                  </Fragment>
-                )
-              }
-              return null
-            })}
-            <div className={classes.orderTotal}>
-              <p>Order Total</p>
-              <p>{cartTotal.formatted}</p>
-            </div>
-          </ul>
-        </div>
-      )}
-      {!clientSecret && !error && (
-        <div className={classes.loading}>
-          <LoadingShimmer number={2} />
-        </div>
-      )}
-      {!clientSecret && error && (
-        <div className={classes.error}>
-          <p>{`Error: ${error}`}</p>
-          <Button label="Back to cart" href="/cart" appearance="secondary" />
-        </div>
-      )}
-      {clientSecret && (
-        <Fragment>
-          <h3 className={classes.payment}>Payment Details</h3>
-          {error && <p>{`Error: ${error}`}</p>}
-          <Elements
-            stripe={stripe}
-            options={{
-              clientSecret,
-              appearance: {
-                theme: 'stripe',
-                variables: {
-                  colorText:
-                    theme === 'dark' ? cssVariables.colors.base0 : cssVariables.colors.base1000,
-                  fontSizeBase: '16px',
-                  fontWeightNormal: '500',
-                  fontWeightBold: '600',
-                  colorBackground:
-                    theme === 'dark' ? cssVariables.colors.base850 : cssVariables.colors.base0,
-                  fontFamily: 'Inter, sans-serif',
-                  colorTextPlaceholder: cssVariables.colors.base500,
-                  colorIcon:
-                    theme === 'dark' ? cssVariables.colors.base0 : cssVariables.colors.base1000,
-                  borderRadius: '0px',
-                  colorDanger: cssVariables.colors.error500,
-                  colorDangerText: cssVariables.colors.error500,
-                },
-              },
+        <div
+          style={{
+            flex: '1 1 45%',
+            minWidth: '300px', // Ensures a minimum width on smaller screens
+            marginBottom: '20px',
+          }}
+        >
+          <h3 className={classes.payment}>Order Items</h3>
+          <div
+            className={classes.items}
+            style={{
+              maxWidth: '900px',
+              margin: '0 auto',
+              padding: '20px',
+              border: '1px solid #ddd',
+              borderRadius: '10px',
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
-            <CheckoutForm />
-          </Elements>
-        </Fragment>
+            <div className={classes.header}>
+              <p>Products</p>
+              <div className={classes.headerItemDetails}>
+                <p></p>
+                <p className={classes.quantity}>Quantity</p>
+              </div>
+              <p className={classes.subtotal}>Subtotal</p>
+            </div>
+
+            <ul>
+              {cart?.items?.map((item, index) => {
+                if (typeof item.product === 'object') {
+                  const {
+                    quantity,
+                    product,
+                    variant,
+                    product: { title, meta },
+                  } = item;
+
+                  if (!quantity) return null;
+
+                  const metaImage = meta?.image;
+
+                  return (
+                    <Fragment key={index}>
+                      <CheckoutItem
+                        product={product}
+                        title={title}
+                        metaImage={metaImage}
+                        quantity={quantity}
+                        index={index}
+                        variant={variant}
+                      />
+                    </Fragment>
+                  );
+                }
+                return null;
+              })}
+              <div className={classes.orderTotal}>
+                <p>Order Total</p>
+                <p>{cartTotal.formatted}</p>
+              </div>
+            </ul>
+          </div>
+        </div>
       )}
-    </Fragment>
+
+      {!cartIsEmpty && (
+        <div
+          style={{
+            flex: '1 1 45%',
+            minWidth: '300px', // Minimum width on mobile
+            marginBottom: '20px',
+          }}
+        >
+          <h3 className={classes.payment}>Payment Details</h3>
+          <Checkout />
+        </div>
+      )}
+    </div>
+
+    {/* Loading or error handling */}
+    {!clientSecret && !error && (
+      <div className={classes.loading}>
+        <LoadingShimmer number={2} />
+      </div>
+    )}
+
+    {clientSecret && (
+      <Fragment>
+        <h3 className={classes.payment}>Payment Details</h3>
+        {error && <p>{`Error: ${error}`}</p>}
+        <Elements
+          stripe={stripe}
+          options={{
+            clientSecret,
+            appearance: {
+              theme: 'stripe',
+              variables: {
+                colorText:
+                  theme === 'dark'
+                    ? cssVariables.colors.base0
+                    : cssVariables.colors.base1000,
+                fontSizeBase: '16px',
+                fontWeightNormal: '500',
+                fontWeightBold: '600',
+                colorBackground:
+                  theme === 'dark'
+                    ? cssVariables.colors.base850
+                    : cssVariables.colors.base0,
+                fontFamily: 'Inter, sans-serif',
+                colorTextPlaceholder: cssVariables.colors.base500,
+                colorIcon:
+                  theme === 'dark'
+                    ? cssVariables.colors.base0
+                    : cssVariables.colors.base1000,
+                borderRadius: '0px',
+                colorDanger: cssVariables.colors.error500,
+                colorDangerText: cssVariables.colors.error500,
+              },
+            },
+          }}
+        >
+          <CheckoutForm />
+        </Elements>
+      </Fragment>
+    )}
+  </Fragment>
+
   )
 }

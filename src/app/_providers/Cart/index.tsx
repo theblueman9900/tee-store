@@ -69,12 +69,11 @@ export const CartProvider = props => {
 
       const syncCartFromLocalStorage = async () => {
         const localCart = localStorage.getItem('cart')
-
         const parsedCart = JSON.parse(localCart || '{}')
 
         if (parsedCart?.items && parsedCart?.items?.length > 0) {
           const initialCart = await Promise.all(
-            parsedCart.items.map(async ({ product, quantity }) => {
+            parsedCart.items.map(async ({ product, quantity , variant}) => {
               const res = await fetch(
                 `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products/${product}`,
               )
@@ -82,6 +81,7 @@ export const CartProvider = props => {
               return {
                 product: data,
                 quantity,
+                variant: variant,
               }
             }),
           )
@@ -110,6 +110,7 @@ export const CartProvider = props => {
   // only do this after we have initialized the cart to ensure we don't lose any items
   useEffect(() => {
     if (!hasInitialized.current) return
+    console.log('🚀 ~ useEffect ~ user:', user)
 
     if (authStatus === 'loggedIn') {
       // merge the user's cart with the local state upon logging in
@@ -132,6 +133,7 @@ export const CartProvider = props => {
   useEffect(() => {
     // wait until we have attempted authentication (the user is either an object or `null`)
     if (!hasInitialized.current || user === undefined) return
+    console.log('🚀 ~ useEffect ~ cart:', cart)
 
     // ensure that cart items are fully populated, filter out any items that are not
     // this will prevent discontinued products from appearing in the cart
@@ -148,6 +150,7 @@ export const CartProvider = props => {
             // flatten relationship to product
             product: item?.product?.id,
             quantity: typeof item?.quantity === 'number' ? item?.quantity : 0,
+            variant: item?.variant,
           }
         })
         .filter(Boolean) as CartItem[],

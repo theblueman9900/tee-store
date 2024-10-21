@@ -128,6 +128,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         if (res.ok) {
           const { user: meUser } = await res.json()
+          console.log('🚀 ~ fetchMe ~ meUser:', meUser)
+
           setUser(meUser || null)
           setStatus(meUser ? 'loggedIn' : undefined)
         } else {

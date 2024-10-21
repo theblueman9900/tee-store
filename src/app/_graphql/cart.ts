@@ -8,6 +8,12 @@ export const CART = `cart {
       priceJSON
       ${META}
     }
+    variant {
+      id
+      price
+      compareAtPrice
+      sku
+    }
     quantity
   }
 }`

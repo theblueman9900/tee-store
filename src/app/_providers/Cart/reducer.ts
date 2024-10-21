@@ -99,7 +99,6 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
 
     case 'DELETE_ITEM': {
       const { payload: incomingItem } = action
-      console.log("🚀 ~ cartReducer ~ incomingItem:", incomingItem)
       const withDeletedItem = { ...cart }
       const productId =
         typeof incomingItem.product === 'string' ? incomingItem.product : incomingItem?.product?.id

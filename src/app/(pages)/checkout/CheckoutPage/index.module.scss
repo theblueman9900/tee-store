@@ -9,7 +9,7 @@
   grid-template-columns: 80px 5fr 1fr;
   gap: 24px;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--color-dark-50);
+  border-bottom: 1px solid var(--theme-elevation-50);
 
   @include small-break {
     display: none;
@@ -39,7 +39,7 @@
   justify-content: space-between;
   padding: 24px;
   margin-bottom: 60px;
-  background-color: var(--color-dark-50);
+  background-color: var(--theme-elevation-50);
 }
 
 .payment {
