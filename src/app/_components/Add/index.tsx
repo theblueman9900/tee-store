@@ -169,7 +169,7 @@ const Add = ({
               //   [option.name!]: choice.description!,
               // })
               const disabled = false
-              const selected = selectedSize.sku === choice.sku
+              const selected = selectedSize?.sku === choice?.sku
 
               const clickHandler = disabled ? undefined : () => setSelectedSize(choice)
 

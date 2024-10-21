@@ -186,16 +186,19 @@ export const CartProvider = props => {
 
   const isProductInCart = useCallback(
     (incomingProduct: Product, incomingVariant: Variant): boolean => {
-      console.log("🚀 ~ CartProvider ~ incomingProduct:", incomingProduct)
-      console.log("🚀 ~ CartProvider ~ incomingVariant:", incomingVariant)
+      console.log('🚀 ~ CartProvider ~ incomingProduct:', incomingProduct)
+      console.log('🚀 ~ CartProvider ~ incomingVariant:', incomingVariant)
       let isInCart = false
       const { items: itemsInCart } = cart || {}
       if (Array.isArray(itemsInCart) && itemsInCart.length > 0) {
         isInCart = Boolean(
-          itemsInCart.find(({ product , variant}) =>
-            (typeof product === 'string'
+          itemsInCart.find(({ product, variant }) =>
+            typeof product === 'string'
               ? product === incomingProduct.id
-              : product?.id === incomingProduct.id && (typeof variant === 'string' ? variant === incomingVariant?.sku : variant?.sku === incomingVariant?.sku)),
+              : product?.id === incomingProduct.id &&
+                (typeof variant === 'string'
+                  ? variant === incomingVariant?.sku
+                  : variant?.sku === incomingVariant?.sku),
           ), // eslint-disable-line function-paren-newline
         )
       }
@@ -233,17 +236,20 @@ export const CartProvider = props => {
       cart?.items?.reduce((acc, item) => {
         return (
           acc +
-          (typeof item.product === 'object'
-            ? JSON.parse(item?.product?.priceJSON || '{}')?.data?.[0]?.unit_amount *
-              (typeof item?.quantity === 'number' ? item?.quantity : 0)
+          (item?.variant && (item?.variant as Variant)?.price !== undefined
+            ? typeof item.variant === 'object'
+              ? item?.variant?.price * (typeof item?.quantity === 'number' ? item?.quantity : 0)
+              : 0
+            : typeof item.product === 'object'
+            ? item?.product?.price * (typeof item?.quantity === 'number' ? item?.quantity : 0)
             : 0)
         )
       }, 0) || 0
 
     setTotal({
-      formatted: (newTotal / 100).toLocaleString('en-US', {
+      formatted: newTotal.toLocaleString('en-US', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'INR',
       }),
       raw: newTotal,
     })

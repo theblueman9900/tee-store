@@ -73,8 +73,8 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
 
       const indexInCart = cart?.items?.findIndex(({ product, variant }) =>
         typeof product === 'string'
-          ? product === productId && (variant as Variant).sku === productSku
-          : product?.id === productId && (variant as Variant).sku === productSku,
+          ? product === productId && (variant as Variant)?.sku === productSku
+          : product?.id === productId && (variant as Variant)?.sku === productSku,
       ) // eslint-disable-line function-paren-newline
 
       let withAddedItem = [...(cart?.items || [])]
@@ -108,8 +108,8 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
 
       const indexInCart = cart?.items?.findIndex(({ product, variant }) =>
         typeof product === 'string'
-          ? product === productId && (variant as Variant).sku === productSku
-          : product?.id === productId && (variant as Variant).sku === productSku,
+          ? product === productId && (variant as Variant)?.sku === productSku
+          : product?.id === productId && (variant as Variant)?.sku === productSku,
       ) // eslint-disable-line function-paren-newline
 
       if (typeof indexInCart === 'number' && withDeletedItem.items && indexInCart > -1)
