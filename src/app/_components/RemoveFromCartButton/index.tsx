@@ -12,10 +12,7 @@ export const RemoveFromCartButton: React.FC<{
   variant?: Variant
 }> = props => {
   const { className, product, variant } = props
-  console.log('🚀 ~ variant:', variant)
-
   const { deleteItemFromCart, isProductInCart } = useCart()
-
   const productIsInCart = isProductInCart(product, variant)
 
   if (!productIsInCart) {

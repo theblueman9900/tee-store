@@ -73,7 +73,7 @@ export const CartProvider = props => {
 
         if (parsedCart?.items && parsedCart?.items?.length > 0) {
           const initialCart = await Promise.all(
-            parsedCart.items.map(async ({ product, quantity , variant}) => {
+            parsedCart.items.map(async ({ product, quantity, variant }) => {
               const res = await fetch(
                 `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products/${product}`,
               )
@@ -110,8 +110,6 @@ export const CartProvider = props => {
   // only do this after we have initialized the cart to ensure we don't lose any items
   useEffect(() => {
     if (!hasInitialized.current) return
-    console.log('🚀 ~ useEffect ~ user:', user)
-
     if (authStatus === 'loggedIn') {
       // merge the user's cart with the local state upon logging in
       dispatchCart({
@@ -133,8 +131,6 @@ export const CartProvider = props => {
   useEffect(() => {
     // wait until we have attempted authentication (the user is either an object or `null`)
     if (!hasInitialized.current || user === undefined) return
-    console.log('🚀 ~ useEffect ~ cart:', cart)
-
     // ensure that cart items are fully populated, filter out any items that are not
     // this will prevent discontinued products from appearing in the cart
     const flattenedCart = {
@@ -189,8 +185,6 @@ export const CartProvider = props => {
 
   const isProductInCart = useCallback(
     (incomingProduct: Product, incomingVariant: Variant): boolean => {
-      console.log('🚀 ~ CartProvider ~ incomingProduct:', incomingProduct)
-      console.log('🚀 ~ CartProvider ~ incomingVariant:', incomingVariant)
       let isInCart = false
       const { items: itemsInCart } = cart || {}
       if (Array.isArray(itemsInCart) && itemsInCart.length > 0) {

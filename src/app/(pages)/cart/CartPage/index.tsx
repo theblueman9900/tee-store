@@ -26,8 +26,6 @@ export const CartPage: React.FC<{
   const { user } = useAuth()
 
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart } = useCart()
-  console.log('🚀 ~ cart:', cart)
-
   return (
     <Fragment>
       <br />

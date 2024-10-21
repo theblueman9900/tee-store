@@ -22,9 +22,6 @@ const CartItem = ({ product, title, metaImage, qty, addItemToCart, variant }) =>
 
   const incrementQty = () => {
     const updatedQty = (quantity ?? 0) + 1
-    console.log('🚀 ~ incrementQty ~ quantity:', quantity)
-    console.log('🚀 ~ incrementQty ~ updatedQty:', updatedQty)
-
     setQuantity(updatedQty)
     addItemToCart({ product, quantity: Number(updatedQty), variant })
   }
