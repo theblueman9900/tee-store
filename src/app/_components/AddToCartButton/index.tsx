@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { Product } from '../../../payload/payload-types'
+import { Product, Variant } from '../../../payload/payload-types'
 import { useCart } from '../../_providers/Cart'
 import { Button, Props } from '../Button'
 
@@ -12,10 +12,11 @@ import classes from './index.module.scss'
 export const AddToCartButton: React.FC<{
   product: Product
   quantity?: number
+  variant?: Variant
   className?: string
   appearance?: Props['appearance']
 }> = props => {
-  const { product, quantity = 1, className, appearance = 'primary' } = props
+  const { product, quantity = 1, variant, className, appearance = 'primary' } = props
 
   const { cart, addItemToCart, isProductInCart, hasInitializedCart } = useCart()
 
@@ -47,6 +48,7 @@ export const AddToCartButton: React.FC<{
               addItemToCart({
                 product,
                 quantity,
+                variant,
               })
 
               router.push('/cart')

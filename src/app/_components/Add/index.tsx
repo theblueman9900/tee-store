@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import classes from './index.module.scss'
 import { AddToCartButton } from '../AddToCartButton'
 import {
@@ -41,9 +41,6 @@ const Add = ({
   stockNumber: number
   product: Product
 }) => {
-  console.log('🚀 ~ product:', JSON.stringify(product.variants as Variant[]))
-  console.log('🚀 ~ product:', groupVariantsByColor(product.variants as Variant[]))
-  console.log('🚀 ~ product:', JSON.stringify(groupVariantsByColor(product.variants as Variant[])))
   const [quantity, setQuantity] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [groupedVariants, setGroupedVariants] = useState<GroupedVariants[]>(
@@ -53,6 +50,13 @@ const Add = ({
     [key: string]: string
   }>({})
   const [selectedVariant, setSelectedVariant] = useState<Variant>()
+
+  const [selectedColor, setSelectedColor] = useState<GroupedVariants>(groupedVariants[0])
+  const [selectedSize, setSelectedSize] = useState<Variant>(selectedColor?.variants[0])
+
+  useEffect(() => {
+    setSelectedSize(selectedColor?.variants[0])
+  }, [selectedColor])
 
   const handleQuantity = (type: 'i' | 'd') => {
     if (type === 'd' && quantity > 1) {
@@ -90,13 +94,10 @@ const Add = ({
               //   ...selectedOptions,
               //   [option.name!]: choice.description!,
               // })
-              const disabled = true
-              // const selected = selectedOptions[groupedVariants[0].color.title!] === choice.color.value
-              const selected = false
+              const disabled = false
+              const selected = selectedColor?.color.value === choice.color.value
 
-              // const clickHandler = disabled
-              //   ? undefined
-              //   : () => handleOptionSelect(option.name!, choice.description!)
+              const clickHandler = disabled ? undefined : () => setSelectedColor(choice)
 
               return (
                 <li
@@ -109,6 +110,7 @@ const Add = ({
                     backgroundColor: choice.color.value,
                     cursor: 'pointer',
                   }}
+                  onClick={clickHandler}
                   key={choice.color.title}
                 >
                   {selected && (
@@ -158,39 +160,45 @@ const Add = ({
               display: 'flex', // flex
               alignItems: 'center', // items-center
               gap: '0.75rem', // gap-3 -> 3 * 0.25rem = 0.75rem
+              flexWrap: 'wrap',
             }}
           >
-            {groupedVariants?.map(choice => {
+            {selectedColor?.variants?.map(choice => {
               // const disabled = !isVariantInStock({
               //   ...selectedOptions,
               //   [option.name!]: choice.description!,
               // })
               const disabled = false
-              // const selected = selectedOptions[groupedVariants[0].color.title!] === choice.color.value
-              const selected = false
+              const selected = selectedSize.sku === choice.sku
 
-              // const clickHandler = disabled
-              //   ? undefined
-              //   : () => handleOptionSelect(option.name!, choice.description!)
+              const clickHandler = disabled ? undefined : () => setSelectedSize(choice)
 
               return (
                 <li
                   style={{
-                    border: '1px solid #B1AFA7', // ring-1 ring-lama (assuming `lama` is #B1AFA7)
-                    borderRadius: '0.375rem',     // rounded-md -> 0.375rem (6px)
-                    paddingTop: '0.25rem',        // py-1 -> 0.25rem
-                    paddingBottom: '0.25rem',     // py-1 -> 0.25rem
-                    paddingLeft: '1rem',          // px-4 -> 1rem
-                    paddingRight: '1rem',         // px-4 -> 1rem
-                    fontSize: '0.875rem',         // text-sm -> 0.875rem (14px)
+                    border: '1px solid var(--theme-elevation-900)', // ring-1 ring-lama (assuming `lama` is #B1AFA7)
+                    borderRadius: '1rem', // rounded-md -> 0.375rem (6px)
+                    paddingTop: '0.2rem', // py-1 -> 0.25rem
+                    paddingBottom: '0.2rem', // py-1 -> 0.25rem
+                    paddingLeft: '1rem', // px-4 -> 1rem
+                    paddingRight: '1rem', // px-4 -> 1rem
+                    fontSize: '0.8rem', // text-sm -> 0.875rem (14px)
                     cursor: disabled ? 'not-allowed' : 'pointer',
-                    backgroundColor: selected ? '#f35c7a' : disabled ? '#FBCFE8' : 'white',
-                    color: selected || disabled ? 'white' : '#f35c7a',
+                    backgroundColor: selected
+                      ? `var(--theme-elevation-900)`
+                      : disabled
+                      ? `var(--theme-elevation-900)`
+                      : `var(--theme-elevation-100)`,
+                    color:
+                      selected || disabled
+                        ? `var(--theme-elevation-100)`
+                        : `var(--theme-elevation-900)`,
                     boxShadow: disabled ? 'none' : '',
                   }}
-                  key={choice.color.title}
+                  key={choice.size.title}
+                  onClick={clickHandler}
                 >
-                  {choice.color.title}
+                  {choice.size.title}
                 </li>
               )
             })}
@@ -206,7 +214,7 @@ const Add = ({
             onClick={() => handleQuantity('d')}
             disabled={quantity === 1}
           >
-            <span>-</span>
+            <span className={classes.incrementDecrementButtonLebel}>-</span>
           </button>
           {quantity}
           <button
@@ -214,7 +222,7 @@ const Add = ({
             onClick={() => handleQuantity('i')}
             disabled={quantity === stockNumber}
           >
-            <span>+</span>
+            <span className={classes.incrementDecrementButtonLebel}>+</span>
           </button>
         </div>
 
@@ -230,6 +238,7 @@ const Add = ({
         <AddToCartButton
           product={product}
           quantity={quantity}
+          variant={selectedSize}
           className={classes.addToCartButton}
         />
       </div>

@@ -27,7 +27,6 @@ export const ProductHero: React.FC<{
     layout,
     meta: { image: metaImage } = {},
   } = product
-  console.log('🚀 ~ product:', JSON.stringify(product))
 
   return (
     <Gutter className={classes.productHero}>

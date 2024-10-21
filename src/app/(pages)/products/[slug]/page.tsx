@@ -35,8 +35,6 @@ export default async function ProductPage({ params: { slug } }) {
   }
 
   const { relatedProducts, layout } = product
-  console.log('🚀 ~ ProductPage ~ relatedProducts:', relatedProducts)
-
   return (
     <>
       <ProductHero product={product} />

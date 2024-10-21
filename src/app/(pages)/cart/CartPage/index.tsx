@@ -26,6 +26,7 @@ export const CartPage: React.FC<{
   const { user } = useAuth()
 
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart } = useCart()
+  console.log('🚀 ~ cart:', cart)
 
   return (
     <Fragment>
@@ -88,6 +89,8 @@ export const CartPage: React.FC<{
                           metaImage={metaImage}
                           qty={quantity}
                           addItemToCart={addItemToCart}
+                          variant={item.variant}
+                          key={item.id}
                         />
                       )
                     }

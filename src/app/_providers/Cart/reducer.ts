@@ -83,6 +83,7 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
         withAddedItem[indexInCart] = {
           ...withAddedItem[indexInCart],
           quantity: (incomingItem.quantity || 0) > 0 ? incomingItem.quantity : undefined,
+          variant: incomingItem.variant || undefined,
         }
       }
 
