@@ -118,27 +118,79 @@ const Users: CollectionConfig = {
                 step: 1,
               },
             },
+            {
+              name: 'variant', // Define the variant field
+              type: 'group',
+              fields: [
+                {
+                  name: 'id',
+                  type: 'text',
+                },
+                {
+                  name: 'sku',
+                  type: 'text',
+                },
+                {
+                  name: 'price',
+                  type: 'number',
+                },
+                {
+                  name: 'compareAtPrice',
+                  type: 'number',
+                },
+                {
+                  name: 'stock',
+                  type: 'number',
+                  required: false,
+                },
+                {
+                  name: 'size',
+                  type: 'group',
+                  fields: [
+                    {
+                      name: 'title',
+                      type: 'text',
+                    },
+                    {
+                      name: 'value',
+                      type: 'text',
+                    },
+                  ],
+                },
+                {
+                  name: 'color',
+                  type: 'group',
+                  fields: [
+                    {
+                      name: 'title',
+                      type: 'text',
+                    },
+                    {
+                      name: 'value',
+                      type: 'text',
+                    },
+                  ],
+                },
+              ],
+            },
           ],
         },
-        // If you wanted to maintain a 'created on'
-        // or 'last modified' date for the cart
-        // you could do so here:
-        // {
-        //   name: 'createdOn',
-        //   label: 'Created On',
-        //   type: 'date',
-        //   admin: {
-        //     readOnly: true
-        //   }
-        // },
-        // {
-        //   name: 'lastModified',
-        //   label: 'Last Modified',
-        //   type: 'date',
-        //   admin: {
-        //     readOnly: true
-        //   }
-        // },
+        {
+          name: 'createdOn',
+          label: 'Created On',
+          type: 'date',
+          admin: {
+            readOnly: true,
+          },
+        },
+        {
+          name: 'lastModified',
+          label: 'Last Modified',
+          type: 'date',
+          admin: {
+            readOnly: true,
+          },
+        },
       ],
     },
     {

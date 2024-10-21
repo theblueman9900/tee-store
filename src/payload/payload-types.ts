@@ -10,7 +10,21 @@ export type CartItems =
   | {
       product?: (string | null) | Product;
       quantity?: number | null;
-      variant?: (string | null) | Variant;
+      variant?: {
+        id?: string | null;
+        sku?: string | null;
+        price?: number | null;
+        compareAtPrice?: number | null;
+        stock?: number | null;
+        size?: {
+          title?: string | null;
+          value?: string | null;
+        };
+        color?: {
+          title?: string | null;
+          value?: string | null;
+        };
+      };
       id?: string | null;
     }[]
   | null;
@@ -196,38 +210,23 @@ export interface Category {
   updatedAt: string;
   createdAt: string;
 }
-
-export interface Variant {
-  id: string;
-  sku: string;
-  price: number;
-  compareAtPrice: number;
-  stock: number | null;
-  size: {
-    title: string;
-    value: string;
-  };
-  color: {
-    title: string;
-    value: string;
-  };
-}
-
-export interface GroupedVariants {
-  color: {
-    title: string;
-    value: string;
-  };
-  variants: Variant[];
-}
-
 export interface Product {
   id: string;
   title: string;
   description: string;
   price: number;
   compareAtPrice?: number | null;
-  variants?: (string | Variant)[] | null;
+  variants?:
+    | {
+        size: string | Size;
+        color: string | Color;
+        price: number;
+        compareAtPrice?: number | null;
+        sku: string;
+        stock?: number | null;
+        id?: string | null;
+      }[]
+    | null;
   publishedOn?: string | null;
   images?:
     | {
@@ -471,6 +470,8 @@ export interface User {
   stripeCustomerID?: string | null;
   cart?: {
     items?: CartItems;
+    createdOn?: string | null;
+    lastModified?: string | null;
   };
   skipSync?: boolean | null;
   updatedAt: string;

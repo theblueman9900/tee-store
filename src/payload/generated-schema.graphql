@@ -5879,12 +5879,35 @@ enum User_roles {
 
 type User_Cart {
   items: [CartItems!]
+  createdOn: DateTime
+  lastModified: DateTime
 }
 
 type CartItems {
   product: Product
   quantity: Float
+  variant: CartItems_Variant
   id: String
+}
+
+type CartItems_Variant {
+  id: String
+  sku: String
+  price: Float
+  compareAtPrice: Float
+  stock: Float
+  size: CartItems_Variant_Size
+  color: CartItems_Variant_Color
+}
+
+type CartItems_Variant_Size {
+  title: String
+  value: String
+}
+
+type CartItems_Variant_Color {
+  title: String
+  value: String
 }
 
 """
@@ -7236,7 +7259,18 @@ input User_where {
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
   cart__items__quantity: User_cart__items__quantity_operator
+  cart__items__variant__id: User_cart__items__variant__id_operator
+  cart__items__variant__sku: User_cart__items__variant__sku_operator
+  cart__items__variant__price: User_cart__items__variant__price_operator
+  cart__items__variant__compareAtPrice: User_cart__items__variant__compareAtPrice_operator
+  cart__items__variant__stock: User_cart__items__variant__stock_operator
+  cart__items__variant__size__title: User_cart__items__variant__size__title_operator
+  cart__items__variant__size__value: User_cart__items__variant__size__value_operator
+  cart__items__variant__color__title: User_cart__items__variant__color__title_operator
+  cart__items__variant__color__value: User_cart__items__variant__color__value_operator
   cart__items__id: User_cart__items__id_operator
+  cart__createdOn: User_cart__createdOn_operator
+  cart__lastModified: User_cart__lastModified_operator
   skipSync: User_skipSync_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
@@ -7310,6 +7344,102 @@ input User_cart__items__quantity_operator {
   exists: Boolean
 }
 
+input User_cart__items__variant__id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input User_cart__items__variant__sku_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input User_cart__items__variant__price_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input User_cart__items__variant__compareAtPrice_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input User_cart__items__variant__stock_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input User_cart__items__variant__size__title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input User_cart__items__variant__size__value_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input User_cart__items__variant__color__title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input User_cart__items__variant__color__value_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
 input User_cart__items__id_operator {
   equals: String
   not_equals: String
@@ -7318,6 +7448,28 @@ input User_cart__items__id_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
+}
+
+input User_cart__createdOn_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input User_cart__lastModified_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
   exists: Boolean
 }
 
@@ -7377,7 +7529,18 @@ input User_where_and {
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
   cart__items__quantity: User_cart__items__quantity_operator
+  cart__items__variant__id: User_cart__items__variant__id_operator
+  cart__items__variant__sku: User_cart__items__variant__sku_operator
+  cart__items__variant__price: User_cart__items__variant__price_operator
+  cart__items__variant__compareAtPrice: User_cart__items__variant__compareAtPrice_operator
+  cart__items__variant__stock: User_cart__items__variant__stock_operator
+  cart__items__variant__size__title: User_cart__items__variant__size__title_operator
+  cart__items__variant__size__value: User_cart__items__variant__size__value_operator
+  cart__items__variant__color__title: User_cart__items__variant__color__title_operator
+  cart__items__variant__color__value: User_cart__items__variant__color__value_operator
   cart__items__id: User_cart__items__id_operator
+  cart__createdOn: User_cart__createdOn_operator
+  cart__lastModified: User_cart__lastModified_operator
   skipSync: User_skipSync_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
@@ -7394,7 +7557,18 @@ input User_where_or {
   stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
   cart__items__quantity: User_cart__items__quantity_operator
+  cart__items__variant__id: User_cart__items__variant__id_operator
+  cart__items__variant__sku: User_cart__items__variant__sku_operator
+  cart__items__variant__price: User_cart__items__variant__price_operator
+  cart__items__variant__compareAtPrice: User_cart__items__variant__compareAtPrice_operator
+  cart__items__variant__stock: User_cart__items__variant__stock_operator
+  cart__items__variant__size__title: User_cart__items__variant__size__title_operator
+  cart__items__variant__size__value: User_cart__items__variant__size__value_operator
+  cart__items__variant__color__title: User_cart__items__variant__color__title_operator
+  cart__items__variant__color__value: User_cart__items__variant__color__value_operator
   cart__items__id: User_cart__items__id_operator
+  cart__createdOn: User_cart__createdOn_operator
+  cart__lastModified: User_cart__lastModified_operator
   skipSync: User_skipSync_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
@@ -7544,6 +7718,8 @@ type UsersDocAccessFields_cart_Delete {
 
 type UsersDocAccessFields_cart_Fields {
   items: UsersDocAccessFields_cart_items
+  createdOn: UsersDocAccessFields_cart_createdOn
+  lastModified: UsersDocAccessFields_cart_lastModified
 }
 
 type UsersDocAccessFields_cart_items {
@@ -7573,6 +7749,7 @@ type UsersDocAccessFields_cart_items_Delete {
 type UsersDocAccessFields_cart_items_Fields {
   product: UsersDocAccessFields_cart_items_product
   quantity: UsersDocAccessFields_cart_items_quantity
+  variant: UsersDocAccessFields_cart_items_variant
   id: UsersDocAccessFields_cart_items_id
 }
 
@@ -7622,6 +7799,305 @@ type UsersDocAccessFields_cart_items_quantity_Delete {
   permission: Boolean!
 }
 
+type UsersDocAccessFields_cart_items_variant {
+  create: UsersDocAccessFields_cart_items_variant_Create
+  read: UsersDocAccessFields_cart_items_variant_Read
+  update: UsersDocAccessFields_cart_items_variant_Update
+  delete: UsersDocAccessFields_cart_items_variant_Delete
+  fields: UsersDocAccessFields_cart_items_variant_Fields
+}
+
+type UsersDocAccessFields_cart_items_variant_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_Fields {
+  id: UsersDocAccessFields_cart_items_variant_id
+  sku: UsersDocAccessFields_cart_items_variant_sku
+  price: UsersDocAccessFields_cart_items_variant_price
+  compareAtPrice: UsersDocAccessFields_cart_items_variant_compareAtPrice
+  stock: UsersDocAccessFields_cart_items_variant_stock
+  size: UsersDocAccessFields_cart_items_variant_size
+  color: UsersDocAccessFields_cart_items_variant_color
+}
+
+type UsersDocAccessFields_cart_items_variant_id {
+  create: UsersDocAccessFields_cart_items_variant_id_Create
+  read: UsersDocAccessFields_cart_items_variant_id_Read
+  update: UsersDocAccessFields_cart_items_variant_id_Update
+  delete: UsersDocAccessFields_cart_items_variant_id_Delete
+}
+
+type UsersDocAccessFields_cart_items_variant_id_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_id_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_id_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_id_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_sku {
+  create: UsersDocAccessFields_cart_items_variant_sku_Create
+  read: UsersDocAccessFields_cart_items_variant_sku_Read
+  update: UsersDocAccessFields_cart_items_variant_sku_Update
+  delete: UsersDocAccessFields_cart_items_variant_sku_Delete
+}
+
+type UsersDocAccessFields_cart_items_variant_sku_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_sku_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_sku_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_sku_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_price {
+  create: UsersDocAccessFields_cart_items_variant_price_Create
+  read: UsersDocAccessFields_cart_items_variant_price_Read
+  update: UsersDocAccessFields_cart_items_variant_price_Update
+  delete: UsersDocAccessFields_cart_items_variant_price_Delete
+}
+
+type UsersDocAccessFields_cart_items_variant_price_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_price_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_price_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_price_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_compareAtPrice {
+  create: UsersDocAccessFields_cart_items_variant_compareAtPrice_Create
+  read: UsersDocAccessFields_cart_items_variant_compareAtPrice_Read
+  update: UsersDocAccessFields_cart_items_variant_compareAtPrice_Update
+  delete: UsersDocAccessFields_cart_items_variant_compareAtPrice_Delete
+}
+
+type UsersDocAccessFields_cart_items_variant_compareAtPrice_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_compareAtPrice_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_compareAtPrice_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_compareAtPrice_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_stock {
+  create: UsersDocAccessFields_cart_items_variant_stock_Create
+  read: UsersDocAccessFields_cart_items_variant_stock_Read
+  update: UsersDocAccessFields_cart_items_variant_stock_Update
+  delete: UsersDocAccessFields_cart_items_variant_stock_Delete
+}
+
+type UsersDocAccessFields_cart_items_variant_stock_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_stock_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_stock_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_stock_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_size {
+  create: UsersDocAccessFields_cart_items_variant_size_Create
+  read: UsersDocAccessFields_cart_items_variant_size_Read
+  update: UsersDocAccessFields_cart_items_variant_size_Update
+  delete: UsersDocAccessFields_cart_items_variant_size_Delete
+  fields: UsersDocAccessFields_cart_items_variant_size_Fields
+}
+
+type UsersDocAccessFields_cart_items_variant_size_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_size_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_size_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_size_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_size_Fields {
+  title: UsersDocAccessFields_cart_items_variant_size_title
+  value: UsersDocAccessFields_cart_items_variant_size_value
+}
+
+type UsersDocAccessFields_cart_items_variant_size_title {
+  create: UsersDocAccessFields_cart_items_variant_size_title_Create
+  read: UsersDocAccessFields_cart_items_variant_size_title_Read
+  update: UsersDocAccessFields_cart_items_variant_size_title_Update
+  delete: UsersDocAccessFields_cart_items_variant_size_title_Delete
+}
+
+type UsersDocAccessFields_cart_items_variant_size_title_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_size_title_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_size_title_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_size_title_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_size_value {
+  create: UsersDocAccessFields_cart_items_variant_size_value_Create
+  read: UsersDocAccessFields_cart_items_variant_size_value_Read
+  update: UsersDocAccessFields_cart_items_variant_size_value_Update
+  delete: UsersDocAccessFields_cart_items_variant_size_value_Delete
+}
+
+type UsersDocAccessFields_cart_items_variant_size_value_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_size_value_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_size_value_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_size_value_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_color {
+  create: UsersDocAccessFields_cart_items_variant_color_Create
+  read: UsersDocAccessFields_cart_items_variant_color_Read
+  update: UsersDocAccessFields_cart_items_variant_color_Update
+  delete: UsersDocAccessFields_cart_items_variant_color_Delete
+  fields: UsersDocAccessFields_cart_items_variant_color_Fields
+}
+
+type UsersDocAccessFields_cart_items_variant_color_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_color_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_color_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_color_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_color_Fields {
+  title: UsersDocAccessFields_cart_items_variant_color_title
+  value: UsersDocAccessFields_cart_items_variant_color_value
+}
+
+type UsersDocAccessFields_cart_items_variant_color_title {
+  create: UsersDocAccessFields_cart_items_variant_color_title_Create
+  read: UsersDocAccessFields_cart_items_variant_color_title_Read
+  update: UsersDocAccessFields_cart_items_variant_color_title_Update
+  delete: UsersDocAccessFields_cart_items_variant_color_title_Delete
+}
+
+type UsersDocAccessFields_cart_items_variant_color_title_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_color_title_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_color_title_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_color_title_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_color_value {
+  create: UsersDocAccessFields_cart_items_variant_color_value_Create
+  read: UsersDocAccessFields_cart_items_variant_color_value_Read
+  update: UsersDocAccessFields_cart_items_variant_color_value_Update
+  delete: UsersDocAccessFields_cart_items_variant_color_value_Delete
+}
+
+type UsersDocAccessFields_cart_items_variant_color_value_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_color_value_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_color_value_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_items_variant_color_value_Delete {
+  permission: Boolean!
+}
+
 type UsersDocAccessFields_cart_items_id {
   create: UsersDocAccessFields_cart_items_id_Create
   read: UsersDocAccessFields_cart_items_id_Read
@@ -7642,6 +8118,52 @@ type UsersDocAccessFields_cart_items_id_Update {
 }
 
 type UsersDocAccessFields_cart_items_id_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_createdOn {
+  create: UsersDocAccessFields_cart_createdOn_Create
+  read: UsersDocAccessFields_cart_createdOn_Read
+  update: UsersDocAccessFields_cart_createdOn_Update
+  delete: UsersDocAccessFields_cart_createdOn_Delete
+}
+
+type UsersDocAccessFields_cart_createdOn_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_createdOn_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_createdOn_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_createdOn_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_lastModified {
+  create: UsersDocAccessFields_cart_lastModified_Create
+  read: UsersDocAccessFields_cart_lastModified_Read
+  update: UsersDocAccessFields_cart_lastModified_Update
+  delete: UsersDocAccessFields_cart_lastModified_Delete
+}
+
+type UsersDocAccessFields_cart_lastModified_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_lastModified_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_lastModified_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_cart_lastModified_Delete {
   permission: Boolean!
 }
 
@@ -12942,6 +13464,8 @@ type UsersFields_cart_Delete {
 
 type UsersFields_cart_Fields {
   items: UsersFields_cart_items
+  createdOn: UsersFields_cart_createdOn
+  lastModified: UsersFields_cart_lastModified
 }
 
 type UsersFields_cart_items {
@@ -12971,6 +13495,7 @@ type UsersFields_cart_items_Delete {
 type UsersFields_cart_items_Fields {
   product: UsersFields_cart_items_product
   quantity: UsersFields_cart_items_quantity
+  variant: UsersFields_cart_items_variant
   id: UsersFields_cart_items_id
 }
 
@@ -13020,6 +13545,305 @@ type UsersFields_cart_items_quantity_Delete {
   permission: Boolean!
 }
 
+type UsersFields_cart_items_variant {
+  create: UsersFields_cart_items_variant_Create
+  read: UsersFields_cart_items_variant_Read
+  update: UsersFields_cart_items_variant_Update
+  delete: UsersFields_cart_items_variant_Delete
+  fields: UsersFields_cart_items_variant_Fields
+}
+
+type UsersFields_cart_items_variant_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_Fields {
+  id: UsersFields_cart_items_variant_id
+  sku: UsersFields_cart_items_variant_sku
+  price: UsersFields_cart_items_variant_price
+  compareAtPrice: UsersFields_cart_items_variant_compareAtPrice
+  stock: UsersFields_cart_items_variant_stock
+  size: UsersFields_cart_items_variant_size
+  color: UsersFields_cart_items_variant_color
+}
+
+type UsersFields_cart_items_variant_id {
+  create: UsersFields_cart_items_variant_id_Create
+  read: UsersFields_cart_items_variant_id_Read
+  update: UsersFields_cart_items_variant_id_Update
+  delete: UsersFields_cart_items_variant_id_Delete
+}
+
+type UsersFields_cart_items_variant_id_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_id_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_id_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_id_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_sku {
+  create: UsersFields_cart_items_variant_sku_Create
+  read: UsersFields_cart_items_variant_sku_Read
+  update: UsersFields_cart_items_variant_sku_Update
+  delete: UsersFields_cart_items_variant_sku_Delete
+}
+
+type UsersFields_cart_items_variant_sku_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_sku_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_sku_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_sku_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_price {
+  create: UsersFields_cart_items_variant_price_Create
+  read: UsersFields_cart_items_variant_price_Read
+  update: UsersFields_cart_items_variant_price_Update
+  delete: UsersFields_cart_items_variant_price_Delete
+}
+
+type UsersFields_cart_items_variant_price_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_price_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_price_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_price_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_compareAtPrice {
+  create: UsersFields_cart_items_variant_compareAtPrice_Create
+  read: UsersFields_cart_items_variant_compareAtPrice_Read
+  update: UsersFields_cart_items_variant_compareAtPrice_Update
+  delete: UsersFields_cart_items_variant_compareAtPrice_Delete
+}
+
+type UsersFields_cart_items_variant_compareAtPrice_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_compareAtPrice_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_compareAtPrice_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_compareAtPrice_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_stock {
+  create: UsersFields_cart_items_variant_stock_Create
+  read: UsersFields_cart_items_variant_stock_Read
+  update: UsersFields_cart_items_variant_stock_Update
+  delete: UsersFields_cart_items_variant_stock_Delete
+}
+
+type UsersFields_cart_items_variant_stock_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_stock_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_stock_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_stock_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_size {
+  create: UsersFields_cart_items_variant_size_Create
+  read: UsersFields_cart_items_variant_size_Read
+  update: UsersFields_cart_items_variant_size_Update
+  delete: UsersFields_cart_items_variant_size_Delete
+  fields: UsersFields_cart_items_variant_size_Fields
+}
+
+type UsersFields_cart_items_variant_size_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_size_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_size_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_size_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_size_Fields {
+  title: UsersFields_cart_items_variant_size_title
+  value: UsersFields_cart_items_variant_size_value
+}
+
+type UsersFields_cart_items_variant_size_title {
+  create: UsersFields_cart_items_variant_size_title_Create
+  read: UsersFields_cart_items_variant_size_title_Read
+  update: UsersFields_cart_items_variant_size_title_Update
+  delete: UsersFields_cart_items_variant_size_title_Delete
+}
+
+type UsersFields_cart_items_variant_size_title_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_size_title_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_size_title_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_size_title_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_size_value {
+  create: UsersFields_cart_items_variant_size_value_Create
+  read: UsersFields_cart_items_variant_size_value_Read
+  update: UsersFields_cart_items_variant_size_value_Update
+  delete: UsersFields_cart_items_variant_size_value_Delete
+}
+
+type UsersFields_cart_items_variant_size_value_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_size_value_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_size_value_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_size_value_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_color {
+  create: UsersFields_cart_items_variant_color_Create
+  read: UsersFields_cart_items_variant_color_Read
+  update: UsersFields_cart_items_variant_color_Update
+  delete: UsersFields_cart_items_variant_color_Delete
+  fields: UsersFields_cart_items_variant_color_Fields
+}
+
+type UsersFields_cart_items_variant_color_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_color_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_color_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_color_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_color_Fields {
+  title: UsersFields_cart_items_variant_color_title
+  value: UsersFields_cart_items_variant_color_value
+}
+
+type UsersFields_cart_items_variant_color_title {
+  create: UsersFields_cart_items_variant_color_title_Create
+  read: UsersFields_cart_items_variant_color_title_Read
+  update: UsersFields_cart_items_variant_color_title_Update
+  delete: UsersFields_cart_items_variant_color_title_Delete
+}
+
+type UsersFields_cart_items_variant_color_title_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_color_title_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_color_title_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_color_title_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_color_value {
+  create: UsersFields_cart_items_variant_color_value_Create
+  read: UsersFields_cart_items_variant_color_value_Read
+  update: UsersFields_cart_items_variant_color_value_Update
+  delete: UsersFields_cart_items_variant_color_value_Delete
+}
+
+type UsersFields_cart_items_variant_color_value_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_color_value_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_color_value_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_items_variant_color_value_Delete {
+  permission: Boolean!
+}
+
 type UsersFields_cart_items_id {
   create: UsersFields_cart_items_id_Create
   read: UsersFields_cart_items_id_Read
@@ -13040,6 +13864,52 @@ type UsersFields_cart_items_id_Update {
 }
 
 type UsersFields_cart_items_id_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_createdOn {
+  create: UsersFields_cart_createdOn_Create
+  read: UsersFields_cart_createdOn_Read
+  update: UsersFields_cart_createdOn_Update
+  delete: UsersFields_cart_createdOn_Delete
+}
+
+type UsersFields_cart_createdOn_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_createdOn_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_createdOn_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_createdOn_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_cart_lastModified {
+  create: UsersFields_cart_lastModified_Create
+  read: UsersFields_cart_lastModified_Read
+  update: UsersFields_cart_lastModified_Update
+  delete: UsersFields_cart_lastModified_Delete
+}
+
+type UsersFields_cart_lastModified_Create {
+  permission: Boolean!
+}
+
+type UsersFields_cart_lastModified_Read {
+  permission: Boolean!
+}
+
+type UsersFields_cart_lastModified_Update {
+  permission: Boolean!
+}
+
+type UsersFields_cart_lastModified_Delete {
   permission: Boolean!
 }
 
@@ -15133,12 +16003,35 @@ enum User_roles_MutationInput {
 
 input mutationUser_CartInput {
   items: [mutationUser_Cart_ItemsInput]
+  createdOn: String
+  lastModified: String
 }
 
 input mutationUser_Cart_ItemsInput {
   product: String
   quantity: Float
+  variant: mutationUser_Cart_Items_VariantInput
   id: String
+}
+
+input mutationUser_Cart_Items_VariantInput {
+  id: String
+  sku: String
+  price: Float
+  compareAtPrice: Float
+  stock: Float
+  size: mutationUser_Cart_Items_Variant_SizeInput
+  color: mutationUser_Cart_Items_Variant_ColorInput
+}
+
+input mutationUser_Cart_Items_Variant_SizeInput {
+  title: String
+  value: String
+}
+
+input mutationUser_Cart_Items_Variant_ColorInput {
+  title: String
+  value: String
 }
 
 input mutationUserUpdateInput {
@@ -15167,12 +16060,35 @@ enum UserUpdate_roles_MutationInput {
 
 input mutationUserUpdate_CartInput {
   items: [mutationUserUpdate_Cart_ItemsInput]
+  createdOn: String
+  lastModified: String
 }
 
 input mutationUserUpdate_Cart_ItemsInput {
   product: String
   quantity: Float
+  variant: mutationUserUpdate_Cart_Items_VariantInput
   id: String
+}
+
+input mutationUserUpdate_Cart_Items_VariantInput {
+  id: String
+  sku: String
+  price: Float
+  compareAtPrice: Float
+  stock: Float
+  size: mutationUserUpdate_Cart_Items_Variant_SizeInput
+  color: mutationUserUpdate_Cart_Items_Variant_ColorInput
+}
+
+input mutationUserUpdate_Cart_Items_Variant_SizeInput {
+  title: String
+  value: String
+}
+
+input mutationUserUpdate_Cart_Items_Variant_ColorInput {
+  title: String
+  value: String
 }
 
 type usersRefreshedUser {
