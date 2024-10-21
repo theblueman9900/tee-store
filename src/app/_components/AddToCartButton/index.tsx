@@ -24,8 +24,8 @@ export const AddToCartButton: React.FC<{
   const router = useRouter()
 
   useEffect(() => {
-    setIsInCart(isProductInCart(product))
-  }, [isProductInCart, product, cart])
+    setIsInCart(isProductInCart(product, variant))
+  }, [isProductInCart, product, cart, variant])
 
   return (
     <Button

@@ -10,7 +10,7 @@ import React, {
   useState,
 } from 'react'
 
-import { Product, User } from '../../../payload/payload-types'
+import { Product, User, Variant } from '../../../payload/payload-types'
 import { useAuth } from '../Auth'
 import { CartItem, cartReducer } from './reducer'
 
@@ -20,7 +20,7 @@ export type CartContext = {
   deleteItemFromCart: (product: Product) => void
   cartIsEmpty: boolean | undefined
   clearCart: () => void
-  isProductInCart: (product: Product) => boolean
+  isProductInCart: (product: Product, variant: Variant) => boolean
   cartTotal: {
     formatted: string
     raw: number
@@ -185,15 +185,17 @@ export const CartProvider = props => {
   }, [user, cart])
 
   const isProductInCart = useCallback(
-    (incomingProduct: Product): boolean => {
+    (incomingProduct: Product, incomingVariant: Variant): boolean => {
+      console.log("🚀 ~ CartProvider ~ incomingProduct:", incomingProduct)
+      console.log("🚀 ~ CartProvider ~ incomingVariant:", incomingVariant)
       let isInCart = false
       const { items: itemsInCart } = cart || {}
       if (Array.isArray(itemsInCart) && itemsInCart.length > 0) {
         isInCart = Boolean(
-          itemsInCart.find(({ product }) =>
-            typeof product === 'string'
+          itemsInCart.find(({ product , variant}) =>
+            (typeof product === 'string'
               ? product === incomingProduct.id
-              : product?.id === incomingProduct.id,
+              : product?.id === incomingProduct.id && (typeof variant === 'string' ? variant === incomingVariant?.sku : variant?.sku === incomingVariant?.sku)),
           ), // eslint-disable-line function-paren-newline
         )
       }
