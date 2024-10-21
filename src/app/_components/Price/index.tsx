@@ -76,25 +76,27 @@ export const Price: React.FC<{
         ? typeof price?.actualPrice !== 'undefined' &&
           price?.withQuantity !== '' && (
             <div className={classes.price}>
-              {quantity && <p>{price?.withQuantity}</p>}
+              {quantity && quantity > 0 && <p>{price?.withQuantity}</p>}
               {!quantity &&
+                quantity != 0 &&
                 variant?.compareAtPrice &&
                 variant?.compareAtPrice !== variant?.price && (
                   <p className={classes.compareAtPrice}>₹{variant?.compareAtPrice?.toString()}</p>
                 )}
-              {!quantity && <p>₹{variant?.price?.toString()}</p>}
+              {!quantity && quantity != 0 && <p>₹{variant?.price?.toString()}</p>}
             </div>
           )
         : typeof price?.actualPrice !== 'undefined' &&
           price?.withQuantity !== '' && (
             <div className={classes.price}>
-              {quantity && <p>{price?.withQuantity}</p>}
+              {quantity && quantity > 0 && <p>{price?.withQuantity}</p>}
               {!quantity &&
+                quantity != 0 &&
                 product?.compareAtPrice &&
                 product?.compareAtPrice !== product?.price && (
                   <p className={classes.compareAtPrice}>₹{product?.compareAtPrice?.toString()}</p>
                 )}
-              {!quantity && <p>₹{product?.price?.toString()}</p>}
+              {!quantity && quantity != 0 && <p>₹{product?.price?.toString()}</p>}
             </div>
           )}
     </div>
