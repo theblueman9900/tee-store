@@ -76,7 +76,7 @@ export const Price: React.FC<{
         ? typeof price?.actualPrice !== 'undefined' &&
           price?.withQuantity !== '' && (
             <div className={classes.price}>
-              {quantity && quantity > 1 && <p>{price?.withQuantity}</p>}
+              {quantity && <p>{price?.withQuantity}</p>}
               {!quantity &&
                 variant?.compareAtPrice &&
                 variant?.compareAtPrice !== variant?.price && (
@@ -88,7 +88,7 @@ export const Price: React.FC<{
         : typeof price?.actualPrice !== 'undefined' &&
           price?.withQuantity !== '' && (
             <div className={classes.price}>
-              {quantity && quantity > 1 && <p>{price?.withQuantity}</p>}
+              {quantity && <p>{price?.withQuantity}</p>}
               {!quantity &&
                 product?.compareAtPrice &&
                 product?.compareAtPrice !== product?.price && (
