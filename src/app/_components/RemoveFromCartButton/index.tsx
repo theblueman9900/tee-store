@@ -11,8 +11,8 @@ export const RemoveFromCartButton: React.FC<{
   product: Product
   variant?: Variant
 }> = props => {
-  const { className, product , variant} = props
-  console.log("🚀 ~ variant:", variant)
+  const { className, product, variant } = props
+  console.log('🚀 ~ variant:', variant)
 
   const { deleteItemFromCart, isProductInCart } = useCart()
 
@@ -26,7 +26,7 @@ export const RemoveFromCartButton: React.FC<{
     <button
       type="button"
       onClick={() => {
-        deleteItemFromCart(product)
+        deleteItemFromCart({ product, variant })
       }}
       className={[className, classes.removeFromCartButton].filter(Boolean).join(' ')}
     >

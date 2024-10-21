@@ -17,7 +17,7 @@ import { CartItem, cartReducer } from './reducer'
 export type CartContext = {
   cart: User['cart']
   addItemToCart: (item: CartItem) => void
-  deleteItemFromCart: (product: Product) => void
+  deleteItemFromCart: (item: CartItem) => void
   cartIsEmpty: boolean | undefined
   clearCart: () => void
   isProductInCart: (product: Product, variant: Variant) => boolean
@@ -212,10 +212,10 @@ export const CartProvider = props => {
     })
   }, [])
 
-  const deleteItemFromCart = useCallback((incomingProduct: Product) => {
+  const deleteItemFromCart = useCallback(incomingItem => {
     dispatchCart({
       type: 'DELETE_ITEM',
-      payload: incomingProduct,
+      payload: incomingItem,
     })
   }, [])
 

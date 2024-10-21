@@ -19,7 +19,7 @@ type CartAction =
     }
   | {
       type: 'DELETE_ITEM'
-      payload: Product
+      payload: CartItem
     }
   | {
       type: 'CLEAR_CART'
@@ -98,13 +98,18 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
     }
 
     case 'DELETE_ITEM': {
-      const { payload: incomingProduct } = action
+      const { payload: incomingItem } = action
+      console.log("🚀 ~ cartReducer ~ incomingItem:", incomingItem)
       const withDeletedItem = { ...cart }
+      const productId =
+        typeof incomingItem.product === 'string' ? incomingItem.product : incomingItem?.product?.id
+      const productSku =
+        typeof incomingItem.variant === 'string' ? incomingItem.variant : incomingItem?.variant?.sku
 
-      const indexInCart = cart?.items?.findIndex(({ product }) =>
+      const indexInCart = cart?.items?.findIndex(({ product, variant }) =>
         typeof product === 'string'
-          ? product === incomingProduct.id
-          : product?.id === incomingProduct.id,
+          ? product === productId && (variant as Variant).sku === productSku
+          : product?.id === productId && (variant as Variant).sku === productSku,
       ) // eslint-disable-line function-paren-newline
 
       if (typeof indexInCart === 'number' && withDeletedItem.items && indexInCart > -1)
