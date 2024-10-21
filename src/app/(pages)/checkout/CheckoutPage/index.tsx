@@ -85,7 +85,6 @@ export const CheckoutPage: React.FC<{
           {' is empty.'}
           {typeof productsPage === 'object' && productsPage?.slug && (
             <Fragment>
-              {' '}
               <Link href={`/${productsPage.slug}`}>Continue shopping?</Link>
             </Fragment>
           )}
@@ -108,6 +107,7 @@ export const CheckoutPage: React.FC<{
                 const {
                   quantity,
                   product,
+                  variant,
                   product: { title, meta },
                 } = item
 
@@ -123,6 +123,7 @@ export const CheckoutPage: React.FC<{
                       metaImage={metaImage}
                       quantity={quantity}
                       index={index}
+                      variant={variant}
                     />
                   </Fragment>
                 )
