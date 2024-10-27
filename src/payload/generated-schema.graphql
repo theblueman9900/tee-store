@@ -5793,6 +5793,7 @@ type Order {
   orderedBy: User
   total: Float!
   items: [Order_Items!]
+  address: Order_Address
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -5887,6 +5888,19 @@ type Order_Items_Variant_Color {
   value: String
 }
 
+type Order_Address {
+  user: User
+  name: String
+  phone: String
+  email: String
+  street: String
+  city: String
+  state: String
+  postalCode: String
+  country: String
+  isDefault: Boolean
+}
+
 type Orders {
   docs: [Order]
   hasNextPage: Boolean
@@ -5917,6 +5931,16 @@ input Order_where {
   items__variant__color__title: Order_items__variant__color__title_operator
   items__variant__color__value: Order_items__variant__color__value_operator
   items__id: Order_items__id_operator
+  address__user: Order_address__user_operator
+  address__name: Order_address__name_operator
+  address__phone: Order_address__phone_operator
+  address__email: Order_address__email_operator
+  address__street: Order_address__street_operator
+  address__city: Order_address__city_operator
+  address__state: Order_address__state_operator
+  address__postalCode: Order_address__postalCode_operator
+  address__country: Order_address__country_operator
+  address__isDefault: Order_address__isDefault_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -6077,6 +6101,100 @@ input Order_items__id_operator {
   exists: Boolean
 }
 
+input Order_address__user_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input Order_address__name_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_address__phone_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_address__email_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_address__street_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_address__city_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_address__state_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_address__postalCode_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_address__country_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_address__isDefault_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
 input Order_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -6126,6 +6244,16 @@ input Order_where_and {
   items__variant__color__title: Order_items__variant__color__title_operator
   items__variant__color__value: Order_items__variant__color__value_operator
   items__id: Order_items__id_operator
+  address__user: Order_address__user_operator
+  address__name: Order_address__name_operator
+  address__phone: Order_address__phone_operator
+  address__email: Order_address__email_operator
+  address__street: Order_address__street_operator
+  address__city: Order_address__city_operator
+  address__state: Order_address__state_operator
+  address__postalCode: Order_address__postalCode_operator
+  address__country: Order_address__country_operator
+  address__isDefault: Order_address__isDefault_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -6149,6 +6277,16 @@ input Order_where_or {
   items__variant__color__title: Order_items__variant__color__title_operator
   items__variant__color__value: Order_items__variant__color__value_operator
   items__id: Order_items__id_operator
+  address__user: Order_address__user_operator
+  address__name: Order_address__name_operator
+  address__phone: Order_address__phone_operator
+  address__email: Order_address__email_operator
+  address__street: Order_address__street_operator
+  address__city: Order_address__city_operator
+  address__state: Order_address__state_operator
+  address__postalCode: Order_address__postalCode_operator
+  address__country: Order_address__country_operator
+  address__isDefault: Order_address__isDefault_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -6168,6 +6306,7 @@ type OrdersDocAccessFields {
   orderedBy: OrdersDocAccessFields_orderedBy
   total: OrdersDocAccessFields_total
   items: OrdersDocAccessFields_items
+  address: OrdersDocAccessFields_address
   updatedAt: OrdersDocAccessFields_updatedAt
   createdAt: OrdersDocAccessFields_createdAt
 }
@@ -6638,6 +6777,273 @@ type OrdersDocAccessFields_items_id_Update {
 }
 
 type OrdersDocAccessFields_items_id_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address {
+  create: OrdersDocAccessFields_address_Create
+  read: OrdersDocAccessFields_address_Read
+  update: OrdersDocAccessFields_address_Update
+  delete: OrdersDocAccessFields_address_Delete
+  fields: OrdersDocAccessFields_address_Fields
+}
+
+type OrdersDocAccessFields_address_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_Fields {
+  user: OrdersDocAccessFields_address_user
+  name: OrdersDocAccessFields_address_name
+  phone: OrdersDocAccessFields_address_phone
+  email: OrdersDocAccessFields_address_email
+  street: OrdersDocAccessFields_address_street
+  city: OrdersDocAccessFields_address_city
+  state: OrdersDocAccessFields_address_state
+  postalCode: OrdersDocAccessFields_address_postalCode
+  country: OrdersDocAccessFields_address_country
+  isDefault: OrdersDocAccessFields_address_isDefault
+}
+
+type OrdersDocAccessFields_address_user {
+  create: OrdersDocAccessFields_address_user_Create
+  read: OrdersDocAccessFields_address_user_Read
+  update: OrdersDocAccessFields_address_user_Update
+  delete: OrdersDocAccessFields_address_user_Delete
+}
+
+type OrdersDocAccessFields_address_user_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_user_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_user_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_user_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_name {
+  create: OrdersDocAccessFields_address_name_Create
+  read: OrdersDocAccessFields_address_name_Read
+  update: OrdersDocAccessFields_address_name_Update
+  delete: OrdersDocAccessFields_address_name_Delete
+}
+
+type OrdersDocAccessFields_address_name_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_name_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_name_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_name_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_phone {
+  create: OrdersDocAccessFields_address_phone_Create
+  read: OrdersDocAccessFields_address_phone_Read
+  update: OrdersDocAccessFields_address_phone_Update
+  delete: OrdersDocAccessFields_address_phone_Delete
+}
+
+type OrdersDocAccessFields_address_phone_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_phone_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_phone_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_phone_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_email {
+  create: OrdersDocAccessFields_address_email_Create
+  read: OrdersDocAccessFields_address_email_Read
+  update: OrdersDocAccessFields_address_email_Update
+  delete: OrdersDocAccessFields_address_email_Delete
+}
+
+type OrdersDocAccessFields_address_email_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_email_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_email_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_email_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_street {
+  create: OrdersDocAccessFields_address_street_Create
+  read: OrdersDocAccessFields_address_street_Read
+  update: OrdersDocAccessFields_address_street_Update
+  delete: OrdersDocAccessFields_address_street_Delete
+}
+
+type OrdersDocAccessFields_address_street_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_street_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_street_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_street_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_city {
+  create: OrdersDocAccessFields_address_city_Create
+  read: OrdersDocAccessFields_address_city_Read
+  update: OrdersDocAccessFields_address_city_Update
+  delete: OrdersDocAccessFields_address_city_Delete
+}
+
+type OrdersDocAccessFields_address_city_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_city_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_city_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_city_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_state {
+  create: OrdersDocAccessFields_address_state_Create
+  read: OrdersDocAccessFields_address_state_Read
+  update: OrdersDocAccessFields_address_state_Update
+  delete: OrdersDocAccessFields_address_state_Delete
+}
+
+type OrdersDocAccessFields_address_state_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_state_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_state_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_state_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_postalCode {
+  create: OrdersDocAccessFields_address_postalCode_Create
+  read: OrdersDocAccessFields_address_postalCode_Read
+  update: OrdersDocAccessFields_address_postalCode_Update
+  delete: OrdersDocAccessFields_address_postalCode_Delete
+}
+
+type OrdersDocAccessFields_address_postalCode_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_postalCode_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_postalCode_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_postalCode_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_country {
+  create: OrdersDocAccessFields_address_country_Create
+  read: OrdersDocAccessFields_address_country_Read
+  update: OrdersDocAccessFields_address_country_Update
+  delete: OrdersDocAccessFields_address_country_Delete
+}
+
+type OrdersDocAccessFields_address_country_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_country_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_country_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_country_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_isDefault {
+  create: OrdersDocAccessFields_address_isDefault_Create
+  read: OrdersDocAccessFields_address_isDefault_Read
+  update: OrdersDocAccessFields_address_isDefault_Update
+  delete: OrdersDocAccessFields_address_isDefault_Delete
+}
+
+type OrdersDocAccessFields_address_isDefault_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_isDefault_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_isDefault_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_address_isDefault_Delete {
   permission: Boolean!
 }
 
@@ -9077,6 +9483,9 @@ type ColorsDeleteDocAccess {
 type Address {
   id: String
   user: User!
+  name: String!
+  phone: String!
+  email: String!
   street: String!
   city: String!
   state: String!
@@ -9103,6 +9512,9 @@ type Addresses {
 
 input Address_where {
   user: Address_user_operator
+  name: Address_name_operator
+  phone: Address_phone_operator
+  email: Address_email_operator
   street: Address_street_operator
   city: Address_city_operator
   state: Address_state_operator
@@ -9122,6 +9534,36 @@ input Address_user_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
+}
+
+input Address_name_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Address_phone_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Address_email_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
 }
 
 input Address_street_operator {
@@ -9215,6 +9657,9 @@ input Address_id_operator {
 
 input Address_where_and {
   user: Address_user_operator
+  name: Address_name_operator
+  phone: Address_phone_operator
+  email: Address_email_operator
   street: Address_street_operator
   city: Address_city_operator
   state: Address_state_operator
@@ -9230,6 +9675,9 @@ input Address_where_and {
 
 input Address_where_or {
   user: Address_user_operator
+  name: Address_name_operator
+  phone: Address_phone_operator
+  email: Address_email_operator
   street: Address_street_operator
   city: Address_city_operator
   state: Address_state_operator
@@ -9253,6 +9701,9 @@ type addressesDocAccess {
 
 type AddressesDocAccessFields {
   user: AddressesDocAccessFields_user
+  name: AddressesDocAccessFields_name
+  phone: AddressesDocAccessFields_phone
+  email: AddressesDocAccessFields_email
   street: AddressesDocAccessFields_street
   city: AddressesDocAccessFields_city
   state: AddressesDocAccessFields_state
@@ -9283,6 +9734,75 @@ type AddressesDocAccessFields_user_Update {
 }
 
 type AddressesDocAccessFields_user_Delete {
+  permission: Boolean!
+}
+
+type AddressesDocAccessFields_name {
+  create: AddressesDocAccessFields_name_Create
+  read: AddressesDocAccessFields_name_Read
+  update: AddressesDocAccessFields_name_Update
+  delete: AddressesDocAccessFields_name_Delete
+}
+
+type AddressesDocAccessFields_name_Create {
+  permission: Boolean!
+}
+
+type AddressesDocAccessFields_name_Read {
+  permission: Boolean!
+}
+
+type AddressesDocAccessFields_name_Update {
+  permission: Boolean!
+}
+
+type AddressesDocAccessFields_name_Delete {
+  permission: Boolean!
+}
+
+type AddressesDocAccessFields_phone {
+  create: AddressesDocAccessFields_phone_Create
+  read: AddressesDocAccessFields_phone_Read
+  update: AddressesDocAccessFields_phone_Update
+  delete: AddressesDocAccessFields_phone_Delete
+}
+
+type AddressesDocAccessFields_phone_Create {
+  permission: Boolean!
+}
+
+type AddressesDocAccessFields_phone_Read {
+  permission: Boolean!
+}
+
+type AddressesDocAccessFields_phone_Update {
+  permission: Boolean!
+}
+
+type AddressesDocAccessFields_phone_Delete {
+  permission: Boolean!
+}
+
+type AddressesDocAccessFields_email {
+  create: AddressesDocAccessFields_email_Create
+  read: AddressesDocAccessFields_email_Read
+  update: AddressesDocAccessFields_email_Update
+  delete: AddressesDocAccessFields_email_Delete
+}
+
+type AddressesDocAccessFields_email_Create {
+  permission: Boolean!
+}
+
+type AddressesDocAccessFields_email_Read {
+  permission: Boolean!
+}
+
+type AddressesDocAccessFields_email_Update {
+  permission: Boolean!
+}
+
+type AddressesDocAccessFields_email_Delete {
   permission: Boolean!
 }
 
@@ -12803,6 +13323,7 @@ type OrdersFields {
   orderedBy: OrdersFields_orderedBy
   total: OrdersFields_total
   items: OrdersFields_items
+  address: OrdersFields_address
   updatedAt: OrdersFields_updatedAt
   createdAt: OrdersFields_createdAt
 }
@@ -13273,6 +13794,273 @@ type OrdersFields_items_id_Update {
 }
 
 type OrdersFields_items_id_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_address {
+  create: OrdersFields_address_Create
+  read: OrdersFields_address_Read
+  update: OrdersFields_address_Update
+  delete: OrdersFields_address_Delete
+  fields: OrdersFields_address_Fields
+}
+
+type OrdersFields_address_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_address_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_address_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_address_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_address_Fields {
+  user: OrdersFields_address_user
+  name: OrdersFields_address_name
+  phone: OrdersFields_address_phone
+  email: OrdersFields_address_email
+  street: OrdersFields_address_street
+  city: OrdersFields_address_city
+  state: OrdersFields_address_state
+  postalCode: OrdersFields_address_postalCode
+  country: OrdersFields_address_country
+  isDefault: OrdersFields_address_isDefault
+}
+
+type OrdersFields_address_user {
+  create: OrdersFields_address_user_Create
+  read: OrdersFields_address_user_Read
+  update: OrdersFields_address_user_Update
+  delete: OrdersFields_address_user_Delete
+}
+
+type OrdersFields_address_user_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_address_user_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_address_user_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_address_user_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_address_name {
+  create: OrdersFields_address_name_Create
+  read: OrdersFields_address_name_Read
+  update: OrdersFields_address_name_Update
+  delete: OrdersFields_address_name_Delete
+}
+
+type OrdersFields_address_name_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_address_name_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_address_name_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_address_name_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_address_phone {
+  create: OrdersFields_address_phone_Create
+  read: OrdersFields_address_phone_Read
+  update: OrdersFields_address_phone_Update
+  delete: OrdersFields_address_phone_Delete
+}
+
+type OrdersFields_address_phone_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_address_phone_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_address_phone_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_address_phone_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_address_email {
+  create: OrdersFields_address_email_Create
+  read: OrdersFields_address_email_Read
+  update: OrdersFields_address_email_Update
+  delete: OrdersFields_address_email_Delete
+}
+
+type OrdersFields_address_email_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_address_email_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_address_email_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_address_email_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_address_street {
+  create: OrdersFields_address_street_Create
+  read: OrdersFields_address_street_Read
+  update: OrdersFields_address_street_Update
+  delete: OrdersFields_address_street_Delete
+}
+
+type OrdersFields_address_street_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_address_street_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_address_street_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_address_street_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_address_city {
+  create: OrdersFields_address_city_Create
+  read: OrdersFields_address_city_Read
+  update: OrdersFields_address_city_Update
+  delete: OrdersFields_address_city_Delete
+}
+
+type OrdersFields_address_city_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_address_city_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_address_city_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_address_city_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_address_state {
+  create: OrdersFields_address_state_Create
+  read: OrdersFields_address_state_Read
+  update: OrdersFields_address_state_Update
+  delete: OrdersFields_address_state_Delete
+}
+
+type OrdersFields_address_state_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_address_state_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_address_state_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_address_state_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_address_postalCode {
+  create: OrdersFields_address_postalCode_Create
+  read: OrdersFields_address_postalCode_Read
+  update: OrdersFields_address_postalCode_Update
+  delete: OrdersFields_address_postalCode_Delete
+}
+
+type OrdersFields_address_postalCode_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_address_postalCode_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_address_postalCode_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_address_postalCode_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_address_country {
+  create: OrdersFields_address_country_Create
+  read: OrdersFields_address_country_Read
+  update: OrdersFields_address_country_Update
+  delete: OrdersFields_address_country_Delete
+}
+
+type OrdersFields_address_country_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_address_country_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_address_country_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_address_country_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_address_isDefault {
+  create: OrdersFields_address_isDefault_Create
+  read: OrdersFields_address_isDefault_Read
+  update: OrdersFields_address_isDefault_Update
+  delete: OrdersFields_address_isDefault_Delete
+}
+
+type OrdersFields_address_isDefault_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_address_isDefault_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_address_isDefault_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_address_isDefault_Delete {
   permission: Boolean!
 }
 
@@ -14857,6 +15645,9 @@ type addressesAccess {
 
 type AddressesFields {
   user: AddressesFields_user
+  name: AddressesFields_name
+  phone: AddressesFields_phone
+  email: AddressesFields_email
   street: AddressesFields_street
   city: AddressesFields_city
   state: AddressesFields_state
@@ -14887,6 +15678,75 @@ type AddressesFields_user_Update {
 }
 
 type AddressesFields_user_Delete {
+  permission: Boolean!
+}
+
+type AddressesFields_name {
+  create: AddressesFields_name_Create
+  read: AddressesFields_name_Read
+  update: AddressesFields_name_Update
+  delete: AddressesFields_name_Delete
+}
+
+type AddressesFields_name_Create {
+  permission: Boolean!
+}
+
+type AddressesFields_name_Read {
+  permission: Boolean!
+}
+
+type AddressesFields_name_Update {
+  permission: Boolean!
+}
+
+type AddressesFields_name_Delete {
+  permission: Boolean!
+}
+
+type AddressesFields_phone {
+  create: AddressesFields_phone_Create
+  read: AddressesFields_phone_Read
+  update: AddressesFields_phone_Update
+  delete: AddressesFields_phone_Delete
+}
+
+type AddressesFields_phone_Create {
+  permission: Boolean!
+}
+
+type AddressesFields_phone_Read {
+  permission: Boolean!
+}
+
+type AddressesFields_phone_Update {
+  permission: Boolean!
+}
+
+type AddressesFields_phone_Delete {
+  permission: Boolean!
+}
+
+type AddressesFields_email {
+  create: AddressesFields_email_Create
+  read: AddressesFields_email_Read
+  update: AddressesFields_email_Update
+  delete: AddressesFields_email_Delete
+}
+
+type AddressesFields_email_Create {
+  permission: Boolean!
+}
+
+type AddressesFields_email_Read {
+  permission: Boolean!
+}
+
+type AddressesFields_email_Update {
+  permission: Boolean!
+}
+
+type AddressesFields_email_Delete {
   permission: Boolean!
 }
 
@@ -16429,6 +17289,7 @@ input mutationOrderInput {
   orderedBy: String
   total: Float!
   items: [mutationOrder_ItemsInput]
+  address: mutationOrder_AddressInput!
   updatedAt: String
   createdAt: String
 }
@@ -16461,10 +17322,24 @@ input mutationOrder_Items_Variant_ColorInput {
   value: String
 }
 
+input mutationOrder_AddressInput {
+  user: String
+  name: String!
+  phone: String!
+  email: String!
+  street: String!
+  city: String!
+  state: String!
+  postalCode: String!
+  country: String!
+  isDefault: Boolean
+}
+
 input mutationOrderUpdateInput {
   orderedBy: String
   total: Float
   items: [mutationOrderUpdate_ItemsInput]
+  address: mutationOrderUpdate_AddressInput!
   updatedAt: String
   createdAt: String
 }
@@ -16495,6 +17370,19 @@ input mutationOrderUpdate_Items_Variant_SizeInput {
 input mutationOrderUpdate_Items_Variant_ColorInput {
   title: String
   value: String
+}
+
+input mutationOrderUpdate_AddressInput {
+  user: String
+  name: String!
+  phone: String!
+  email: String!
+  street: String!
+  city: String!
+  state: String!
+  postalCode: String!
+  country: String!
+  isDefault: Boolean
 }
 
 input mutationMediaInput {
@@ -16719,6 +17607,9 @@ input mutationColorUpdateInput {
 
 input mutationAddressInput {
   user: String
+  name: String!
+  phone: String!
+  email: String!
   street: String!
   city: String!
   state: String!
@@ -16731,6 +17622,9 @@ input mutationAddressInput {
 
 input mutationAddressUpdateInput {
   user: String
+  name: String
+  phone: String
+  email: String
   street: String
   city: String
   state: String

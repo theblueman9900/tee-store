@@ -20,6 +20,24 @@ export const Addresses: CollectionConfig = {
       required: true,
     },
     {
+      name: 'name',
+      type: 'text',
+      label: 'Receiver',
+      required: true,
+    },
+    {
+      name: 'phone',
+      type: 'text',
+      label: 'Phone Number',
+      required: true,
+    },
+    {
+      name: 'email',
+      type: 'text',
+      label: 'Email Address',
+      required: true,
+    },
+    {
       name: 'street',
       type: 'text',
       label: 'Street Address',

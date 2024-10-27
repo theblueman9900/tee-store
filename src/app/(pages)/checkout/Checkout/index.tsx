@@ -37,6 +37,35 @@ const CheckoutPage = ({ _cartTotal }) => {
     async e => {
       e.preventDefault()
       setIsLoading(true)
+      const request = JSON.stringify({
+        orderedBy: user?.id,
+        total: cartTotal.raw,
+        items: (cart?.items || [])?.map(({ product, quantity, variant }) => ({
+          product: typeof product === 'string' ? product : product.id,
+          quantity,
+          variant,
+          price: variant?.price
+            ? typeof variant === 'object'
+              ? variant.price
+              : undefined
+            : typeof product === 'object'
+            ? priceFromJSON(product.priceJSON, variant?.price, 1, true)
+            : undefined,
+        })),
+        address: {
+          user: user?.id,
+          name: name,
+          phone: phone,
+          email: email,
+          street: street,
+          city: city,
+          state: state,
+          postalCode: postalCode,
+          country: country,
+          isDefault: false,
+        },
+      })
+      console.log('🚀 ~ CheckoutPage ~ request:', request)
 
       // Before redirecting to the order confirmation page, we need to create the order in Payload
       // Cannot clear the cart yet because if you clear the cart while in the checkout
@@ -64,6 +93,18 @@ const CheckoutPage = ({ _cartTotal }) => {
                 ? priceFromJSON(product.priceJSON, variant?.price, 1, true)
                 : undefined,
             })),
+            address: {
+              user: user?.id,
+              name: name,
+              phone: phone,
+              email: email,
+              street: street,
+              city: city,
+              state: state,
+              postalCode: postalCode,
+              country: country,
+              isDefault: false,
+            },
           }),
         })
 

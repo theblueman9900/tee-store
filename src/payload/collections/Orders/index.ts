@@ -115,56 +115,74 @@ export const Orders: CollectionConfig = {
         },
       ],
     },
-    // {
-    //   name: 'items',
-    //   type: 'group',
-    //   fields: [
-    //     {
-    //       name: 'user',
-    //       type: 'relationship',
-    //       relationTo: 'users',
-    //       required: true,
-    //     },
-    //     {
-    //       name: 'street',
-    //       type: 'text',
-    //       label: 'Street Address',
-    //       required: true,
-    //     },
-    //     {
-    //       name: 'city',
-    //       type: 'text',
-    //       label: 'City',
-    //       required: true,
-    //     },
-    //     {
-    //       name: 'state',
-    //       type: 'text',
-    //       label: 'State/Province',
-    //       required: true,
-    //     },
-    //     {
-    //       name: 'postalCode',
-    //       type: 'text',
-    //       label: 'Postal Code',
-    //       required: true,
-    //     },
-    //     {
-    //       name: 'country',
-    //       type: 'text',
-    //       label: 'Country',
-    //       required: true,
-    //     },
-    //     {
-    //       name: 'isDefault',
-    //       type: 'checkbox',
-    //       label: 'Default Address',
-    //       defaultValue: false,
-    //       admin: {
-    //         description: 'Check if this is the default address for the user.',
-    //       },
-    //     },
-    //   ],
-    // },
+    {
+      name: 'address',
+      type: 'group',
+      fields: [
+        {
+          name: 'user',
+          type: 'relationship',
+          relationTo: 'users',
+          required: true,
+        },
+        {
+          name: 'name',
+          type: 'text',
+          label: 'Receiver',
+          required: true,
+        },
+        {
+          name: 'phone',
+          type: 'text',
+          label: 'Phone Number',
+          required: true,
+        },
+        {
+          name: 'email',
+          type: 'text',
+          label: 'Email Address',
+          required: true,
+        },
+        {
+          name: 'street',
+          type: 'text',
+          label: 'Street Address',
+          required: true,
+        },
+        {
+          name: 'city',
+          type: 'text',
+          label: 'City',
+          required: true,
+        },
+        {
+          name: 'state',
+          type: 'text',
+          label: 'State/Province',
+          required: true,
+        },
+        {
+          name: 'postalCode',
+          type: 'text',
+          label: 'Postal Code',
+          required: true,
+        },
+        {
+          name: 'country',
+          type: 'text',
+          label: 'Country',
+          required: true,
+        },
+        {
+          name: 'isDefault',
+          type: 'checkbox',
+          label: 'Default Address',
+          defaultValue: false,
+          admin: {
+            description: 'Check if this is the default address for the user.',
+          },
+        },
+      ],
+    },
   ],
 }

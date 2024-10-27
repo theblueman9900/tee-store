@@ -472,6 +472,18 @@ export interface Order {
         id?: string | null;
       }[]
     | null;
+  address: {
+    user: string | User;
+    name: string;
+    phone: string;
+    email: string;
+    street: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+    isDefault?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -500,6 +512,9 @@ export interface User {
 export interface Address {
   id: string;
   user: string | User;
+  name: string;
+  phone: string;
+  email: string;
   street: string;
   city: string;
   state: string;
