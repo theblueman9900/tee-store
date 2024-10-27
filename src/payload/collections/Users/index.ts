@@ -5,7 +5,6 @@ import { anyone } from '../../access/anyone'
 import adminsAndUser from './access/adminsAndUser'
 import { checkRole } from './checkRole'
 import { customerProxy } from './endpoints/customer'
-import { createStripeCustomer } from './hooks/createStripeCustomer'
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
 import { loginAfterCreate } from './hooks/loginAfterCreate'
 import { resolveDuplicatePurchases } from './hooks/resolveDuplicatePurchases'
@@ -25,7 +24,7 @@ const Users: CollectionConfig = {
     admin: ({ req: { user } }) => checkRole(['admin'], user),
   },
   hooks: {
-    beforeChange: [createStripeCustomer],
+    beforeChange: [],
     afterChange: [loginAfterCreate],
   },
   auth: true,
@@ -78,20 +77,6 @@ const Users: CollectionConfig = {
       hasMany: true,
       hooks: {
         beforeChange: [resolveDuplicatePurchases],
-      },
-    },
-    {
-      name: 'stripeCustomerID',
-      label: 'Stripe Customer',
-      type: 'text',
-      access: {
-        read: ({ req: { user } }) => checkRole(['admin'], user),
-      },
-      admin: {
-        position: 'sidebar',
-        components: {
-          Field: CustomerSelect,
-        },
       },
     },
     {

@@ -12,49 +12,7 @@ export const CustomerSelect: React.FC<TextField> = props => {
     }[]
   >([])
 
-  const { value: stripeCustomerID } = useFormFields(([fields]) => fields[name]) || {}
-
-  React.useEffect(() => {
-    const getStripeCustomers = async () => {
-      try {
-        const customersFetch = await fetch(`/api/stripe/customers`, {
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-
-        const res = await customersFetch.json()
-
-        if (res?.data) {
-          const fetchedCustomers = res.data.reduce(
-            (acc, item) => {
-              acc.push({
-                label: item.name || item.email || item.id,
-                value: item.id,
-              })
-              return acc
-            },
-            [
-              {
-                label: 'Select a customer',
-                value: '',
-              },
-            ],
-          )
-          setOptions(fetchedCustomers)
-        }
-      } catch (error) {
-        console.error(error) // eslint-disable-line no-console
-      }
-    }
-
-    getStripeCustomers()
-  }, [])
-
-  const href = `https://dashboard.stripe.com/${
-    process.env.PAYLOAD_PUBLIC_STRIPE_IS_TEST_KEY ? 'test/' : ''
-  }customers/${stripeCustomerID}`
+  React.useEffect(() => {}, [])
 
   return (
     <div>
@@ -66,20 +24,13 @@ export const CustomerSelect: React.FC<TextField> = props => {
         }}
       >
         {`Select the related Stripe customer or `}
-        <a
-          href={`https://dashboard.stripe.com/${
-            process.env.PAYLOAD_PUBLIC_STRIPE_IS_TEST_KEY ? 'test/' : ''
-          }customers/create`}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: 'var(--theme-text' }}
-        >
+        <a target="_blank" rel="noopener noreferrer" style={{ color: 'var(--theme-text' }}>
           create a new one
         </a>
         {'.'}
       </p>
       <Select {...props} label="" options={options} />
-      {Boolean(stripeCustomerID) && (
+      {
         <div>
           <div>
             <span
@@ -87,12 +38,8 @@ export const CustomerSelect: React.FC<TextField> = props => {
               style={{
                 color: '#9A9A9A',
               }}
-            >
-              {`Manage "${
-                options.find(option => option.value === stripeCustomerID)?.label || 'Unknown'
-              }" in Stripe`}
-            </span>
-            <CopyToClipboard value={href} />
+            ></span>
+            <CopyToClipboard value={''} />
           </div>
           <div
             style={{
@@ -101,18 +48,12 @@ export const CustomerSelect: React.FC<TextField> = props => {
               fontWeight: '600',
             }}
           >
-            <a
-              href={`https://dashboard.stripe.com/${
-                process.env.PAYLOAD_PUBLIC_STRIPE_IS_TEST_KEY ? 'test/' : ''
-              }customers/${stripeCustomerID}`}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              {href}
+            <a target="_blank" rel="noreferrer noopener">
+              {'Link'}
             </a>
           </div>
         </div>
-      )}
+      }
     </div>
   )
 }

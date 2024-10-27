@@ -1,11 +1,6 @@
 import type { PayloadHandler } from 'payload/config'
-import Stripe from 'stripe'
 
 import type { CartItems } from '../payload-types'
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2022-08-01',
-})
 
 // this endpoint creates a `PaymentIntent` with the items in the cart
 // to do this, we loop through the items in the cart and lookup the product in Stripe
@@ -30,25 +25,6 @@ export const createPaymentIntent: PayloadHandler = async (req, res): Promise<voi
   }
 
   try {
-    let stripeCustomerID = fullUser?.stripeCustomerID
-
-    // lookup user in Stripe and create one if not found
-    if (!stripeCustomerID) {
-      const customer = await stripe.customers.create({
-        email: fullUser?.email,
-        name: fullUser?.name,
-      })
-
-      stripeCustomerID = customer.id
-
-      await payload.update({
-        collection: 'users',
-        id: user?.id,
-        data: {
-          stripeCustomerID,
-        },
-      })
-    }
 
     let total = 0
 
@@ -67,15 +43,11 @@ export const createPaymentIntent: PayloadHandler = async (req, res): Promise<voi
           return null
         }
 
-        if (typeof product === 'string' || !product?.stripeProductID) {
+        if (typeof product === 'string') {
           throw new Error('No Stripe Product ID')
         }
 
-        const prices = await stripe.prices.list({
-          product: product.stripeProductID,
-          limit: 100,
-          expand: ['data.product'],
-        })
+        const prices : any = []
 
         if (prices.data.length === 0) {
           res.status(404).json({ error: 'There are no items in your cart to checkout with' })
@@ -93,12 +65,7 @@ export const createPaymentIntent: PayloadHandler = async (req, res): Promise<voi
       throw new Error('There is nothing to pay for, add some items to your cart and try again.')
     }
 
-    const paymentIntent = await stripe.paymentIntents.create({
-      customer: stripeCustomerID,
-      amount: total,
-      currency: 'usd',
-      payment_method_types: ['card'],
-    })
+    const paymentIntent: any = {}
 
     res.send({ client_secret: paymentIntent.client_secret })
   } catch (error: unknown) {

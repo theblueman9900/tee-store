@@ -6,7 +6,6 @@ import { adminsOrOrderedBy } from './access/adminsOrOrderedBy'
 import { clearUserCart } from './hooks/clearUserCart'
 import { populateOrderedBy } from './hooks/populateOrderedBy'
 import { updateUserPurchases } from './hooks/updateUserPurchases'
-import { LinkToPaymentIntent } from './ui/LinkToPaymentIntent'
 
 export const Orders: CollectionConfig = {
   slug: 'orders',
@@ -31,17 +30,6 @@ export const Orders: CollectionConfig = {
       relationTo: 'users',
       hooks: {
         beforeChange: [populateOrderedBy],
-      },
-    },
-    {
-      name: 'stripePaymentIntentID',
-      label: 'Stripe Payment Intent ID',
-      type: 'text',
-      admin: {
-        position: 'sidebar',
-        components: {
-          Field: LinkToPaymentIntent,
-        },
       },
     },
     {
@@ -70,7 +58,113 @@ export const Orders: CollectionConfig = {
           type: 'number',
           min: 0,
         },
+        {
+          name: 'variant', // Define the variant field
+          type: 'group',
+          fields: [
+            {
+              name: 'id',
+              type: 'text',
+            },
+            {
+              name: 'sku',
+              type: 'text',
+            },
+            {
+              name: 'price',
+              type: 'number',
+            },
+            {
+              name: 'compareAtPrice',
+              type: 'number',
+            },
+            {
+              name: 'stock',
+              type: 'number',
+              required: false,
+            },
+            {
+              name: 'size',
+              type: 'group',
+              fields: [
+                {
+                  name: 'title',
+                  type: 'text',
+                },
+                {
+                  name: 'value',
+                  type: 'text',
+                },
+              ],
+            },
+            {
+              name: 'color',
+              type: 'group',
+              fields: [
+                {
+                  name: 'title',
+                  type: 'text',
+                },
+                {
+                  name: 'value',
+                  type: 'text',
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
+    // {
+    //   name: 'items',
+    //   type: 'group',
+    //   fields: [
+    //     {
+    //       name: 'user',
+    //       type: 'relationship',
+    //       relationTo: 'users',
+    //       required: true,
+    //     },
+    //     {
+    //       name: 'street',
+    //       type: 'text',
+    //       label: 'Street Address',
+    //       required: true,
+    //     },
+    //     {
+    //       name: 'city',
+    //       type: 'text',
+    //       label: 'City',
+    //       required: true,
+    //     },
+    //     {
+    //       name: 'state',
+    //       type: 'text',
+    //       label: 'State/Province',
+    //       required: true,
+    //     },
+    //     {
+    //       name: 'postalCode',
+    //       type: 'text',
+    //       label: 'Postal Code',
+    //       required: true,
+    //     },
+    //     {
+    //       name: 'country',
+    //       type: 'text',
+    //       label: 'Country',
+    //       required: true,
+    //     },
+    //     {
+    //       name: 'isDefault',
+    //       type: 'checkbox',
+    //       label: 'Default Address',
+    //       defaultValue: false,
+    //       admin: {
+    //         description: 'Check if this is the default address for the user.',
+    //       },
+    //     },
+    //   ],
+    // },
   ],
 }

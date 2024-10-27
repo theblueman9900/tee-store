@@ -210,16 +210,6 @@ export interface Category {
   updatedAt: string;
   createdAt: string;
 }
-
-export interface Variant {
-  id: string;
-  size: string | Size;
-  color: string | Color;
-  price: number;
-  compareAtPrice?: number | null;
-  sku: string;
-  stock?: number | null;
-}
 export interface Product {
   id: string;
   title: string;
@@ -335,7 +325,6 @@ export interface Product {
           }
       )[]
     | null;
-  stripeProductID?: string | null;
   priceJSON?: string | null;
   enablePaywall?: boolean | null;
   paywall?:
@@ -459,13 +448,27 @@ export interface Color {
 export interface Order {
   id: string;
   orderedBy?: (string | null) | User;
-  stripePaymentIntentID?: string | null;
   total: number;
   items?:
     | {
         product: string | Product;
         price?: number | null;
         quantity?: number | null;
+        variant?: {
+          id?: string | null;
+          sku?: string | null;
+          price?: number | null;
+          compareAtPrice?: number | null;
+          stock?: number | null;
+          size?: {
+            title?: string | null;
+            value?: string | null;
+          };
+          color?: {
+            title?: string | null;
+            value?: string | null;
+          };
+        };
         id?: string | null;
       }[]
     | null;
@@ -477,7 +480,6 @@ export interface User {
   name?: string | null;
   roles?: ('admin' | 'customer')[] | null;
   purchases?: (string | Product)[] | null;
-  stripeCustomerID?: string | null;
   cart?: {
     items?: CartItems;
     createdOn?: string | null;
@@ -604,5 +606,5 @@ export interface Footer {
 
 
 declare module 'payload' {
-  export interface _GeneratedTypes extends Config {}
+  export interface GeneratedTypes extends Config {}
 }

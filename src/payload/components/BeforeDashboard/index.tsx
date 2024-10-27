@@ -25,7 +25,6 @@ const BeforeDashboard: React.FC = () => {
         <li>
           {'Head over to '}
           <a
-            href="https://dashboard.stripe.com/test/apikeys"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -35,7 +34,6 @@ const BeforeDashboard: React.FC = () => {
             '. Create a new account if needed, then copy them into your environment variables and restart your server. See the '
           }
           <a
-            href="https://github.com/payloadcms/payload/blob/main/templates/ecommerce/README.md#stripe"
             target="_blank"
             rel="noopener noreferrer"
           >

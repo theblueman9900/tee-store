@@ -22,7 +22,6 @@ export const PRODUCT = `
         description
         price
         compareAtPrice
-        stripeProductID
         images{
           id
           image {

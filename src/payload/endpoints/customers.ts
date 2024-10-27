@@ -1,12 +1,7 @@
 import type { PayloadHandler } from 'payload/config'
 import type { PayloadRequest } from 'payload/types'
-import Stripe from 'stripe'
 
 import { checkRole } from '../collections/Users/checkRole'
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2022-08-01',
-})
 
 const logs = process.env.LOGS_STRIPE_PROXY === '1'
 
@@ -21,11 +16,7 @@ export const customersProxy: PayloadHandler = async (req: PayloadRequest, res) =
   }
 
   try {
-    const customers = await stripe.customers.list({
-      limit: 100,
-    })
-
-    res.status(200).json(customers)
+    res.status(200).json([])
   } catch (error: unknown) {
     if (logs) req.payload.logger.error({ err: `Error using Stripe API: ${error}` })
     res.status(500).json({ error: `Error using Stripe API: ${error}` })

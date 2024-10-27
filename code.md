@@ -101,7 +101,7 @@
 
   --color-white-500: rgba(255, 255, 255, 1);
   --color-white-500-20: rgba(255, 255, 255, 0.2);
-  
+
   --color-gray-500: rgba(164, 161, 170, 1);
   --color-green-500: rgba(60, 209, 57, 1);
 }
@@ -419,7 +419,7 @@ export const noHeaderFooterUrls = ['/create-account', '/login', '/recover-passwo
   align-items: center;
   width: 100%;
   height: 100%;
- 
+
 
   @include mid-break {
     justify-content: flex-start;
@@ -748,7 +748,7 @@ export const noHeaderFooterUrls = ['/create-account', '/login', '/recover-passwo
     flex-direction: row;
     gap: 40px;
   }
-  
+
   @include small-break {
     flex-direction: column;
     gap: 20px;
@@ -1270,7 +1270,7 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  
+
   h6 {
     line-height: 20px;
     margin-bottom: 8px;
@@ -1443,7 +1443,7 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
 .quantity {
   text-align: center;
   font-size: 18px;
-  
+
   @include small-break {
     text-align: start;
     font-size: 16px;
@@ -1508,8 +1508,6 @@ export const CheckoutItem = ({ product, title, metaImage, quantity, index }) => 
 'use client'
 
 import React, { Fragment, useEffect } from 'react'
-import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -1526,7 +1524,6 @@ import { CheckoutItem } from '../CheckoutItem'
 import classes from './index.module.scss'
 
 const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
-const stripe = loadStripe(apiKey)
 
 export const CheckoutPage: React.FC<{
   settings: Settings
@@ -1581,7 +1578,7 @@ export const CheckoutPage: React.FC<{
     }
   }, [cart, user])
 
-  if (!user || !stripe) return null
+  if (!user) return null
 
   return (
     <Fragment>
@@ -1658,33 +1655,6 @@ export const CheckoutPage: React.FC<{
         <Fragment>
           <h3 className={classes.payment}>Payment Details</h3>
           {error && <p>{`Error: ${error}`}</p>}
-          <Elements
-            stripe={stripe}
-            options={{
-              clientSecret,
-              appearance: {
-                theme: 'stripe',
-                variables: {
-                  colorText:
-                    theme === 'dark' ? cssVariables.colors.base0 : cssVariables.colors.base1000,
-                  fontSizeBase: '16px',
-                  fontWeightNormal: '500',
-                  fontWeightBold: '600',
-                  colorBackground:
-                    theme === 'dark' ? cssVariables.colors.base850 : cssVariables.colors.base0,
-                  fontFamily: 'Inter, sans-serif',
-                  colorTextPlaceholder: cssVariables.colors.base500,
-                  colorIcon:
-                    theme === 'dark' ? cssVariables.colors.base0 : cssVariables.colors.base1000,
-                  borderRadius: '0px',
-                  colorDanger: cssVariables.colors.error500,
-                  colorDangerText: cssVariables.colors.error500,
-                },
-              },
-            }}
-          >
-            <CheckoutForm />
-          </Elements>
         </Fragment>
       )}
     </Fragment>

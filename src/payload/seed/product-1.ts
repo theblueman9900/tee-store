@@ -2,7 +2,6 @@ import type { Product } from '../payload-types'
 
 export const product1: Partial<Product> = {
   title: 'Cotton T-Shirt',
-  stripeProductID: '',
   slug: 'cotton-t',
   _status: 'published',
   meta: {

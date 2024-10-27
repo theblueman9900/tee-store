@@ -1,8 +1,6 @@
 'use client'
 
 import React, { Fragment, useEffect } from 'react'
-import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -20,7 +18,6 @@ import classes from './index.module.scss'
 import Checkout from '../Checkout'
 
 const apiKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
-const stripe = loadStripe(apiKey)
 
 export const CheckoutPage: React.FC<{
   settings: Settings
@@ -75,7 +72,7 @@ export const CheckoutPage: React.FC<{
     }
   }, [cart, user])
 
-  if (!user || !stripe) return null
+  if (!user ) return null
 
   return (
     <Fragment>
@@ -179,7 +176,7 @@ export const CheckoutPage: React.FC<{
           }}
         >
           <h3 className={classes.payment}>Payment Details</h3>
-          <Checkout cartTotal={cartTotal} />
+          <Checkout _cartTotal={cartTotal} />
         </div>
       )}
     </div>
@@ -195,39 +192,6 @@ export const CheckoutPage: React.FC<{
       <Fragment>
         <h3 className={classes.payment}>Payment Details</h3>
         {error && <p>{`Error: ${error}`}</p>}
-        <Elements
-          stripe={stripe}
-          options={{
-            clientSecret,
-            appearance: {
-              theme: 'stripe',
-              variables: {
-                colorText:
-                  theme === 'dark'
-                    ? cssVariables.colors.base0
-                    : cssVariables.colors.base1000,
-                fontSizeBase: '16px',
-                fontWeightNormal: '500',
-                fontWeightBold: '600',
-                colorBackground:
-                  theme === 'dark'
-                    ? cssVariables.colors.base850
-                    : cssVariables.colors.base0,
-                fontFamily: 'Inter, sans-serif',
-                colorTextPlaceholder: cssVariables.colors.base500,
-                colorIcon:
-                  theme === 'dark'
-                    ? cssVariables.colors.base0
-                    : cssVariables.colors.base1000,
-                borderRadius: '0px',
-                colorDanger: cssVariables.colors.error500,
-                colorDangerText: cssVariables.colors.error500,
-              },
-            },
-          }}
-        >
-          <CheckoutForm />
-        </Elements>
       </Fragment>
     )}
   </Fragment>

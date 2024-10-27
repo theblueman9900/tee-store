@@ -6,7 +6,6 @@ import nestedDocs from '@payloadcms/plugin-nested-docs'
 import redirects from '@payloadcms/plugin-redirects'
 import seo from '@payloadcms/plugin-seo'
 import type { GenerateTitle } from '@payloadcms/plugin-seo/types'
-import stripePlugin from '@payloadcms/plugin-stripe'
 import { slateEditor } from '@payloadcms/richtext-slate' // editor-import
 import dotenv from 'dotenv'
 import path from 'path'
@@ -26,8 +25,6 @@ import { seed } from './endpoints/seed'
 import { Footer } from './globals/Footer'
 import { Header } from './globals/Header'
 import { Settings } from './globals/Settings'
-import { priceUpdated } from './stripe/webhooks/priceUpdated'
-import { productUpdated } from './stripe/webhooks/productUpdated'
 import Sizes from './collections/Sizes'
 import Colors from './collections/Colors'
 import { Addresses } from './collections/Addresses'
@@ -74,7 +71,6 @@ export default buildConfig({
             [path.resolve(__dirname, 'endpoints/customers')]: mockModulePath,
             [path.resolve(__dirname, 'endpoints/products')]: mockModulePath,
             [path.resolve(__dirname, 'endpoints/seed')]: mockModulePath,
-            stripe: mockModulePath,
             express: mockModulePath,
           },
         },
@@ -106,27 +102,11 @@ export default buildConfig({
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
-  cors: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
-    Boolean,
-  ),
-  csrf: ['https://checkout.stripe.com', process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(
-    Boolean,
-  ),
   endpoints: [
     {
       path: '/create-payment-intent',
       method: 'post',
       handler: createPaymentIntent,
-    },
-    {
-      path: '/stripe/customers',
-      method: 'get',
-      handler: customersProxy,
-    },
-    {
-      path: '/stripe/products',
-      method: 'get',
-      handler: productsProxy,
     },
     // The seed endpoint is used to populate the database with some example data
     // You should delete this endpoint before deploying your site to production
@@ -138,17 +118,6 @@ export default buildConfig({
   ],
   plugins: [
     // formBuilder({}),
-    stripePlugin({
-      stripeSecretKey: process.env.STRIPE_SECRET_KEY || '',
-      isTestKey: Boolean(process.env.PAYLOAD_PUBLIC_STRIPE_IS_TEST_KEY),
-      stripeWebhooksEndpointSecret: process.env.STRIPE_WEBHOOKS_SIGNING_SECRET,
-      rest: false,
-      webhooks: {
-        'product.created': productUpdated,
-        'product.updated': productUpdated,
-        'price.updated': priceUpdated,
-      },
-    }),
     redirects({
       collections: ['pages', 'products'],
     }),

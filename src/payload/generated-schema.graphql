@@ -1285,7 +1285,6 @@ type Product {
   publishedOn: DateTime
   images: [Product_Images!]
   layout: [Product_Layout!]
-  stripeProductID: String
   priceJSON: String
   enablePaywall: Boolean
   paywall: [Product_Paywall!]
@@ -3817,7 +3816,6 @@ input Product_where {
   publishedOn: Product_publishedOn_operator
   images__image: Product_images__image_operator
   images__id: Product_images__id_operator
-  stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
   enablePaywall: Product_enablePaywall_operator
   categories: Product_categories_operator
@@ -3967,17 +3965,6 @@ input Product_images__id_operator {
   exists: Boolean
 }
 
-input Product_stripeProductID_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
 input Product_priceJSON_operator {
   equals: String
   not_equals: String
@@ -4114,7 +4101,6 @@ input Product_where_and {
   publishedOn: Product_publishedOn_operator
   images__image: Product_images__image_operator
   images__id: Product_images__id_operator
-  stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
   enablePaywall: Product_enablePaywall_operator
   categories: Product_categories_operator
@@ -4147,7 +4133,6 @@ input Product_where_or {
   publishedOn: Product_publishedOn_operator
   images__image: Product_images__image_operator
   images__id: Product_images__id_operator
-  stripeProductID: Product_stripeProductID_operator
   priceJSON: Product_priceJSON_operator
   enablePaywall: Product_enablePaywall_operator
   categories: Product_categories_operator
@@ -4183,7 +4168,6 @@ type ProductsDocAccessFields {
   publishedOn: ProductsDocAccessFields_publishedOn
   images: ProductsDocAccessFields_images
   layout: ProductsDocAccessFields_layout
-  stripeProductID: ProductsDocAccessFields_stripeProductID
   priceJSON: ProductsDocAccessFields_priceJSON
   enablePaywall: ProductsDocAccessFields_enablePaywall
   paywall: ProductsDocAccessFields_paywall
@@ -4602,29 +4586,6 @@ type ProductsDocAccessFields_layout_Update {
 }
 
 type ProductsDocAccessFields_layout_Delete {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_stripeProductID {
-  create: ProductsDocAccessFields_stripeProductID_Create
-  read: ProductsDocAccessFields_stripeProductID_Read
-  update: ProductsDocAccessFields_stripeProductID_Update
-  delete: ProductsDocAccessFields_stripeProductID_Delete
-}
-
-type ProductsDocAccessFields_stripeProductID_Create {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_stripeProductID_Read {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_stripeProductID_Update {
-  permission: Boolean!
-}
-
-type ProductsDocAccessFields_stripeProductID_Delete {
   permission: Boolean!
 }
 
@@ -5048,7 +5009,6 @@ type ProductVersion_Version {
   publishedOn: DateTime
   images: [ProductVersion_Version_Images!]
   layout: [ProductVersion_Version_Layout!]
-  stripeProductID: String
   priceJSON: String
   enablePaywall: Boolean
   paywall: [ProductVersion_Version_Paywall!]
@@ -5446,7 +5406,6 @@ input versionsProduct_where {
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__images__image: versionsProduct_version__images__image_operator
   version__images__id: versionsProduct_version__images__id_operator
-  version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
   version__enablePaywall: versionsProduct_version__enablePaywall_operator
   version__categories: versionsProduct_version__categories_operator
@@ -5598,17 +5557,6 @@ input versionsProduct_version__images__image_operator {
 }
 
 input versionsProduct_version__images__id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input versionsProduct_version__stripeProductID_operator {
   equals: String
   not_equals: String
   like: String
@@ -5784,7 +5732,6 @@ input versionsProduct_where_and {
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__images__image: versionsProduct_version__images__image_operator
   version__images__id: versionsProduct_version__images__id_operator
-  version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
   version__enablePaywall: versionsProduct_version__enablePaywall_operator
   version__categories: versionsProduct_version__categories_operator
@@ -5821,7 +5768,6 @@ input versionsProduct_where_or {
   version__publishedOn: versionsProduct_version__publishedOn_operator
   version__images__image: versionsProduct_version__images__image_operator
   version__images__id: versionsProduct_version__images__id_operator
-  version__stripeProductID: versionsProduct_version__stripeProductID_operator
   version__priceJSON: versionsProduct_version__priceJSON_operator
   version__enablePaywall: versionsProduct_version__enablePaywall_operator
   version__categories: versionsProduct_version__categories_operator
@@ -5845,7 +5791,6 @@ input versionsProduct_where_or {
 type Order {
   id: String
   orderedBy: User
-  stripePaymentIntentID: String
   total: Float!
   items: [Order_Items!]
   updatedAt: DateTime
@@ -5857,7 +5802,6 @@ type User {
   name: String
   roles: [User_roles!]
   purchases: [Product!]
-  stripeCustomerID: String
   cart: User_Cart
   skipSync: Boolean
   updatedAt: DateTime
@@ -5919,7 +5863,28 @@ type Order_Items {
   product: Product
   price: Float
   quantity: Float
+  variant: Order_Items_Variant
   id: String
+}
+
+type Order_Items_Variant {
+  id: String
+  sku: String
+  price: Float
+  compareAtPrice: Float
+  stock: Float
+  size: Order_Items_Variant_Size
+  color: Order_Items_Variant_Color
+}
+
+type Order_Items_Variant_Size {
+  title: String
+  value: String
+}
+
+type Order_Items_Variant_Color {
+  title: String
+  value: String
 }
 
 type Orders {
@@ -5938,11 +5903,19 @@ type Orders {
 
 input Order_where {
   orderedBy: Order_orderedBy_operator
-  stripePaymentIntentID: Order_stripePaymentIntentID_operator
   total: Order_total_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
+  items__variant__id: Order_items__variant__id_operator
+  items__variant__sku: Order_items__variant__sku_operator
+  items__variant__price: Order_items__variant__price_operator
+  items__variant__compareAtPrice: Order_items__variant__compareAtPrice_operator
+  items__variant__stock: Order_items__variant__stock_operator
+  items__variant__size__title: Order_items__variant__size__title_operator
+  items__variant__size__value: Order_items__variant__size__value_operator
+  items__variant__color__title: Order_items__variant__color__title_operator
+  items__variant__color__value: Order_items__variant__color__value_operator
   items__id: Order_items__id_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
@@ -5957,17 +5930,6 @@ input Order_orderedBy_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
-  exists: Boolean
-}
-
-input Order_stripePaymentIntentID_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
   exists: Boolean
 }
 
@@ -6005,6 +5967,102 @@ input Order_items__quantity_operator {
   greater_than: Float
   less_than_equal: Float
   less_than: Float
+  exists: Boolean
+}
+
+input Order_items__variant__id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_items__variant__sku_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_items__variant__price_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Order_items__variant__compareAtPrice_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Order_items__variant__stock_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Order_items__variant__size__title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_items__variant__size__value_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_items__variant__color__title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_items__variant__color__value_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -6054,11 +6112,19 @@ input Order_id_operator {
 
 input Order_where_and {
   orderedBy: Order_orderedBy_operator
-  stripePaymentIntentID: Order_stripePaymentIntentID_operator
   total: Order_total_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
+  items__variant__id: Order_items__variant__id_operator
+  items__variant__sku: Order_items__variant__sku_operator
+  items__variant__price: Order_items__variant__price_operator
+  items__variant__compareAtPrice: Order_items__variant__compareAtPrice_operator
+  items__variant__stock: Order_items__variant__stock_operator
+  items__variant__size__title: Order_items__variant__size__title_operator
+  items__variant__size__value: Order_items__variant__size__value_operator
+  items__variant__color__title: Order_items__variant__color__title_operator
+  items__variant__color__value: Order_items__variant__color__value_operator
   items__id: Order_items__id_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
@@ -6069,11 +6135,19 @@ input Order_where_and {
 
 input Order_where_or {
   orderedBy: Order_orderedBy_operator
-  stripePaymentIntentID: Order_stripePaymentIntentID_operator
   total: Order_total_operator
   items__product: Order_items__product_operator
   items__price: Order_items__price_operator
   items__quantity: Order_items__quantity_operator
+  items__variant__id: Order_items__variant__id_operator
+  items__variant__sku: Order_items__variant__sku_operator
+  items__variant__price: Order_items__variant__price_operator
+  items__variant__compareAtPrice: Order_items__variant__compareAtPrice_operator
+  items__variant__stock: Order_items__variant__stock_operator
+  items__variant__size__title: Order_items__variant__size__title_operator
+  items__variant__size__value: Order_items__variant__size__value_operator
+  items__variant__color__title: Order_items__variant__color__title_operator
+  items__variant__color__value: Order_items__variant__color__value_operator
   items__id: Order_items__id_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
@@ -6092,7 +6166,6 @@ type ordersDocAccess {
 
 type OrdersDocAccessFields {
   orderedBy: OrdersDocAccessFields_orderedBy
-  stripePaymentIntentID: OrdersDocAccessFields_stripePaymentIntentID
   total: OrdersDocAccessFields_total
   items: OrdersDocAccessFields_items
   updatedAt: OrdersDocAccessFields_updatedAt
@@ -6119,29 +6192,6 @@ type OrdersDocAccessFields_orderedBy_Update {
 }
 
 type OrdersDocAccessFields_orderedBy_Delete {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_stripePaymentIntentID {
-  create: OrdersDocAccessFields_stripePaymentIntentID_Create
-  read: OrdersDocAccessFields_stripePaymentIntentID_Read
-  update: OrdersDocAccessFields_stripePaymentIntentID_Update
-  delete: OrdersDocAccessFields_stripePaymentIntentID_Delete
-}
-
-type OrdersDocAccessFields_stripePaymentIntentID_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_stripePaymentIntentID_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_stripePaymentIntentID_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_stripePaymentIntentID_Delete {
   permission: Boolean!
 }
 
@@ -6196,6 +6246,7 @@ type OrdersDocAccessFields_items_Fields {
   product: OrdersDocAccessFields_items_product
   price: OrdersDocAccessFields_items_price
   quantity: OrdersDocAccessFields_items_quantity
+  variant: OrdersDocAccessFields_items_variant
   id: OrdersDocAccessFields_items_id
 }
 
@@ -6265,6 +6316,305 @@ type OrdersDocAccessFields_items_quantity_Update {
 }
 
 type OrdersDocAccessFields_items_quantity_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant {
+  create: OrdersDocAccessFields_items_variant_Create
+  read: OrdersDocAccessFields_items_variant_Read
+  update: OrdersDocAccessFields_items_variant_Update
+  delete: OrdersDocAccessFields_items_variant_Delete
+  fields: OrdersDocAccessFields_items_variant_Fields
+}
+
+type OrdersDocAccessFields_items_variant_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_Fields {
+  id: OrdersDocAccessFields_items_variant_id
+  sku: OrdersDocAccessFields_items_variant_sku
+  price: OrdersDocAccessFields_items_variant_price
+  compareAtPrice: OrdersDocAccessFields_items_variant_compareAtPrice
+  stock: OrdersDocAccessFields_items_variant_stock
+  size: OrdersDocAccessFields_items_variant_size
+  color: OrdersDocAccessFields_items_variant_color
+}
+
+type OrdersDocAccessFields_items_variant_id {
+  create: OrdersDocAccessFields_items_variant_id_Create
+  read: OrdersDocAccessFields_items_variant_id_Read
+  update: OrdersDocAccessFields_items_variant_id_Update
+  delete: OrdersDocAccessFields_items_variant_id_Delete
+}
+
+type OrdersDocAccessFields_items_variant_id_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_id_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_id_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_id_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_sku {
+  create: OrdersDocAccessFields_items_variant_sku_Create
+  read: OrdersDocAccessFields_items_variant_sku_Read
+  update: OrdersDocAccessFields_items_variant_sku_Update
+  delete: OrdersDocAccessFields_items_variant_sku_Delete
+}
+
+type OrdersDocAccessFields_items_variant_sku_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_sku_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_sku_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_sku_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_price {
+  create: OrdersDocAccessFields_items_variant_price_Create
+  read: OrdersDocAccessFields_items_variant_price_Read
+  update: OrdersDocAccessFields_items_variant_price_Update
+  delete: OrdersDocAccessFields_items_variant_price_Delete
+}
+
+type OrdersDocAccessFields_items_variant_price_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_price_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_price_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_price_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_compareAtPrice {
+  create: OrdersDocAccessFields_items_variant_compareAtPrice_Create
+  read: OrdersDocAccessFields_items_variant_compareAtPrice_Read
+  update: OrdersDocAccessFields_items_variant_compareAtPrice_Update
+  delete: OrdersDocAccessFields_items_variant_compareAtPrice_Delete
+}
+
+type OrdersDocAccessFields_items_variant_compareAtPrice_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_compareAtPrice_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_compareAtPrice_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_compareAtPrice_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_stock {
+  create: OrdersDocAccessFields_items_variant_stock_Create
+  read: OrdersDocAccessFields_items_variant_stock_Read
+  update: OrdersDocAccessFields_items_variant_stock_Update
+  delete: OrdersDocAccessFields_items_variant_stock_Delete
+}
+
+type OrdersDocAccessFields_items_variant_stock_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_stock_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_stock_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_stock_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_size {
+  create: OrdersDocAccessFields_items_variant_size_Create
+  read: OrdersDocAccessFields_items_variant_size_Read
+  update: OrdersDocAccessFields_items_variant_size_Update
+  delete: OrdersDocAccessFields_items_variant_size_Delete
+  fields: OrdersDocAccessFields_items_variant_size_Fields
+}
+
+type OrdersDocAccessFields_items_variant_size_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_size_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_size_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_size_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_size_Fields {
+  title: OrdersDocAccessFields_items_variant_size_title
+  value: OrdersDocAccessFields_items_variant_size_value
+}
+
+type OrdersDocAccessFields_items_variant_size_title {
+  create: OrdersDocAccessFields_items_variant_size_title_Create
+  read: OrdersDocAccessFields_items_variant_size_title_Read
+  update: OrdersDocAccessFields_items_variant_size_title_Update
+  delete: OrdersDocAccessFields_items_variant_size_title_Delete
+}
+
+type OrdersDocAccessFields_items_variant_size_title_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_size_title_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_size_title_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_size_title_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_size_value {
+  create: OrdersDocAccessFields_items_variant_size_value_Create
+  read: OrdersDocAccessFields_items_variant_size_value_Read
+  update: OrdersDocAccessFields_items_variant_size_value_Update
+  delete: OrdersDocAccessFields_items_variant_size_value_Delete
+}
+
+type OrdersDocAccessFields_items_variant_size_value_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_size_value_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_size_value_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_size_value_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_color {
+  create: OrdersDocAccessFields_items_variant_color_Create
+  read: OrdersDocAccessFields_items_variant_color_Read
+  update: OrdersDocAccessFields_items_variant_color_Update
+  delete: OrdersDocAccessFields_items_variant_color_Delete
+  fields: OrdersDocAccessFields_items_variant_color_Fields
+}
+
+type OrdersDocAccessFields_items_variant_color_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_color_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_color_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_color_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_color_Fields {
+  title: OrdersDocAccessFields_items_variant_color_title
+  value: OrdersDocAccessFields_items_variant_color_value
+}
+
+type OrdersDocAccessFields_items_variant_color_title {
+  create: OrdersDocAccessFields_items_variant_color_title_Create
+  read: OrdersDocAccessFields_items_variant_color_title_Read
+  update: OrdersDocAccessFields_items_variant_color_title_Update
+  delete: OrdersDocAccessFields_items_variant_color_title_Delete
+}
+
+type OrdersDocAccessFields_items_variant_color_title_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_color_title_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_color_title_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_color_title_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_color_value {
+  create: OrdersDocAccessFields_items_variant_color_value_Create
+  read: OrdersDocAccessFields_items_variant_color_value_Read
+  update: OrdersDocAccessFields_items_variant_color_value_Update
+  delete: OrdersDocAccessFields_items_variant_color_value_Delete
+}
+
+type OrdersDocAccessFields_items_variant_color_value_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_color_value_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_color_value_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_items_variant_color_value_Delete {
   permission: Boolean!
 }
 
@@ -7256,7 +7606,6 @@ input User_where {
   name: User_name_operator
   roles: User_roles_operator
   purchases: User_purchases_operator
-  stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
   cart__items__quantity: User_cart__items__quantity_operator
   cart__items__variant__id: User_cart__items__variant__id_operator
@@ -7311,17 +7660,6 @@ input User_purchases_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
-  exists: Boolean
-}
-
-input User_stripeCustomerID_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
   exists: Boolean
 }
 
@@ -7526,7 +7864,6 @@ input User_where_and {
   name: User_name_operator
   roles: User_roles_operator
   purchases: User_purchases_operator
-  stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
   cart__items__quantity: User_cart__items__quantity_operator
   cart__items__variant__id: User_cart__items__variant__id_operator
@@ -7554,7 +7891,6 @@ input User_where_or {
   name: User_name_operator
   roles: User_roles_operator
   purchases: User_purchases_operator
-  stripeCustomerID: User_stripeCustomerID_operator
   cart__items__product: User_cart__items__product_operator
   cart__items__quantity: User_cart__items__quantity_operator
   cart__items__variant__id: User_cart__items__variant__id_operator
@@ -7591,7 +7927,6 @@ type UsersDocAccessFields {
   name: UsersDocAccessFields_name
   roles: UsersDocAccessFields_roles
   purchases: UsersDocAccessFields_purchases
-  stripeCustomerID: UsersDocAccessFields_stripeCustomerID
   cart: UsersDocAccessFields_cart
   skipSync: UsersDocAccessFields_skipSync
   updatedAt: UsersDocAccessFields_updatedAt
@@ -7666,29 +8001,6 @@ type UsersDocAccessFields_purchases_Update {
 }
 
 type UsersDocAccessFields_purchases_Delete {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_stripeCustomerID {
-  create: UsersDocAccessFields_stripeCustomerID_Create
-  read: UsersDocAccessFields_stripeCustomerID_Read
-  update: UsersDocAccessFields_stripeCustomerID_Update
-  delete: UsersDocAccessFields_stripeCustomerID_Delete
-}
-
-type UsersDocAccessFields_stripeCustomerID_Create {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_stripeCustomerID_Read {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_stripeCustomerID_Update {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_stripeCustomerID_Delete {
   permission: Boolean!
 }
 
@@ -11656,7 +11968,6 @@ type ProductsFields {
   publishedOn: ProductsFields_publishedOn
   images: ProductsFields_images
   layout: ProductsFields_layout
-  stripeProductID: ProductsFields_stripeProductID
   priceJSON: ProductsFields_priceJSON
   enablePaywall: ProductsFields_enablePaywall
   paywall: ProductsFields_paywall
@@ -12078,29 +12389,6 @@ type ProductsFields_layout_Delete {
   permission: Boolean!
 }
 
-type ProductsFields_stripeProductID {
-  create: ProductsFields_stripeProductID_Create
-  read: ProductsFields_stripeProductID_Read
-  update: ProductsFields_stripeProductID_Update
-  delete: ProductsFields_stripeProductID_Delete
-}
-
-type ProductsFields_stripeProductID_Create {
-  permission: Boolean!
-}
-
-type ProductsFields_stripeProductID_Read {
-  permission: Boolean!
-}
-
-type ProductsFields_stripeProductID_Update {
-  permission: Boolean!
-}
-
-type ProductsFields_stripeProductID_Delete {
-  permission: Boolean!
-}
-
 type ProductsFields_priceJSON {
   create: ProductsFields_priceJSON_Create
   read: ProductsFields_priceJSON_Read
@@ -12513,7 +12801,6 @@ type ordersAccess {
 
 type OrdersFields {
   orderedBy: OrdersFields_orderedBy
-  stripePaymentIntentID: OrdersFields_stripePaymentIntentID
   total: OrdersFields_total
   items: OrdersFields_items
   updatedAt: OrdersFields_updatedAt
@@ -12540,29 +12827,6 @@ type OrdersFields_orderedBy_Update {
 }
 
 type OrdersFields_orderedBy_Delete {
-  permission: Boolean!
-}
-
-type OrdersFields_stripePaymentIntentID {
-  create: OrdersFields_stripePaymentIntentID_Create
-  read: OrdersFields_stripePaymentIntentID_Read
-  update: OrdersFields_stripePaymentIntentID_Update
-  delete: OrdersFields_stripePaymentIntentID_Delete
-}
-
-type OrdersFields_stripePaymentIntentID_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_stripePaymentIntentID_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_stripePaymentIntentID_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_stripePaymentIntentID_Delete {
   permission: Boolean!
 }
 
@@ -12617,6 +12881,7 @@ type OrdersFields_items_Fields {
   product: OrdersFields_items_product
   price: OrdersFields_items_price
   quantity: OrdersFields_items_quantity
+  variant: OrdersFields_items_variant
   id: OrdersFields_items_id
 }
 
@@ -12686,6 +12951,305 @@ type OrdersFields_items_quantity_Update {
 }
 
 type OrdersFields_items_quantity_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant {
+  create: OrdersFields_items_variant_Create
+  read: OrdersFields_items_variant_Read
+  update: OrdersFields_items_variant_Update
+  delete: OrdersFields_items_variant_Delete
+  fields: OrdersFields_items_variant_Fields
+}
+
+type OrdersFields_items_variant_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_Fields {
+  id: OrdersFields_items_variant_id
+  sku: OrdersFields_items_variant_sku
+  price: OrdersFields_items_variant_price
+  compareAtPrice: OrdersFields_items_variant_compareAtPrice
+  stock: OrdersFields_items_variant_stock
+  size: OrdersFields_items_variant_size
+  color: OrdersFields_items_variant_color
+}
+
+type OrdersFields_items_variant_id {
+  create: OrdersFields_items_variant_id_Create
+  read: OrdersFields_items_variant_id_Read
+  update: OrdersFields_items_variant_id_Update
+  delete: OrdersFields_items_variant_id_Delete
+}
+
+type OrdersFields_items_variant_id_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_id_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_id_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_id_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_sku {
+  create: OrdersFields_items_variant_sku_Create
+  read: OrdersFields_items_variant_sku_Read
+  update: OrdersFields_items_variant_sku_Update
+  delete: OrdersFields_items_variant_sku_Delete
+}
+
+type OrdersFields_items_variant_sku_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_sku_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_sku_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_sku_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_price {
+  create: OrdersFields_items_variant_price_Create
+  read: OrdersFields_items_variant_price_Read
+  update: OrdersFields_items_variant_price_Update
+  delete: OrdersFields_items_variant_price_Delete
+}
+
+type OrdersFields_items_variant_price_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_price_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_price_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_price_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_compareAtPrice {
+  create: OrdersFields_items_variant_compareAtPrice_Create
+  read: OrdersFields_items_variant_compareAtPrice_Read
+  update: OrdersFields_items_variant_compareAtPrice_Update
+  delete: OrdersFields_items_variant_compareAtPrice_Delete
+}
+
+type OrdersFields_items_variant_compareAtPrice_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_compareAtPrice_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_compareAtPrice_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_compareAtPrice_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_stock {
+  create: OrdersFields_items_variant_stock_Create
+  read: OrdersFields_items_variant_stock_Read
+  update: OrdersFields_items_variant_stock_Update
+  delete: OrdersFields_items_variant_stock_Delete
+}
+
+type OrdersFields_items_variant_stock_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_stock_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_stock_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_stock_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_size {
+  create: OrdersFields_items_variant_size_Create
+  read: OrdersFields_items_variant_size_Read
+  update: OrdersFields_items_variant_size_Update
+  delete: OrdersFields_items_variant_size_Delete
+  fields: OrdersFields_items_variant_size_Fields
+}
+
+type OrdersFields_items_variant_size_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_size_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_size_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_size_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_size_Fields {
+  title: OrdersFields_items_variant_size_title
+  value: OrdersFields_items_variant_size_value
+}
+
+type OrdersFields_items_variant_size_title {
+  create: OrdersFields_items_variant_size_title_Create
+  read: OrdersFields_items_variant_size_title_Read
+  update: OrdersFields_items_variant_size_title_Update
+  delete: OrdersFields_items_variant_size_title_Delete
+}
+
+type OrdersFields_items_variant_size_title_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_size_title_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_size_title_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_size_title_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_size_value {
+  create: OrdersFields_items_variant_size_value_Create
+  read: OrdersFields_items_variant_size_value_Read
+  update: OrdersFields_items_variant_size_value_Update
+  delete: OrdersFields_items_variant_size_value_Delete
+}
+
+type OrdersFields_items_variant_size_value_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_size_value_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_size_value_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_size_value_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_color {
+  create: OrdersFields_items_variant_color_Create
+  read: OrdersFields_items_variant_color_Read
+  update: OrdersFields_items_variant_color_Update
+  delete: OrdersFields_items_variant_color_Delete
+  fields: OrdersFields_items_variant_color_Fields
+}
+
+type OrdersFields_items_variant_color_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_color_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_color_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_color_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_color_Fields {
+  title: OrdersFields_items_variant_color_title
+  value: OrdersFields_items_variant_color_value
+}
+
+type OrdersFields_items_variant_color_title {
+  create: OrdersFields_items_variant_color_title_Create
+  read: OrdersFields_items_variant_color_title_Read
+  update: OrdersFields_items_variant_color_title_Update
+  delete: OrdersFields_items_variant_color_title_Delete
+}
+
+type OrdersFields_items_variant_color_title_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_color_title_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_color_title_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_color_title_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_color_value {
+  create: OrdersFields_items_variant_color_value_Create
+  read: OrdersFields_items_variant_color_value_Read
+  update: OrdersFields_items_variant_color_value_Update
+  delete: OrdersFields_items_variant_color_value_Delete
+}
+
+type OrdersFields_items_variant_color_value_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_color_value_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_color_value_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_items_variant_color_value_Delete {
   permission: Boolean!
 }
 
@@ -13337,7 +13901,6 @@ type UsersFields {
   name: UsersFields_name
   roles: UsersFields_roles
   purchases: UsersFields_purchases
-  stripeCustomerID: UsersFields_stripeCustomerID
   cart: UsersFields_cart
   skipSync: UsersFields_skipSync
   updatedAt: UsersFields_updatedAt
@@ -13412,29 +13975,6 @@ type UsersFields_purchases_Update {
 }
 
 type UsersFields_purchases_Delete {
-  permission: Boolean!
-}
-
-type UsersFields_stripeCustomerID {
-  create: UsersFields_stripeCustomerID_Create
-  read: UsersFields_stripeCustomerID_Read
-  update: UsersFields_stripeCustomerID_Update
-  delete: UsersFields_stripeCustomerID_Delete
-}
-
-type UsersFields_stripeCustomerID_Create {
-  permission: Boolean!
-}
-
-type UsersFields_stripeCustomerID_Read {
-  permission: Boolean!
-}
-
-type UsersFields_stripeCustomerID_Update {
-  permission: Boolean!
-}
-
-type UsersFields_stripeCustomerID_Delete {
   permission: Boolean!
 }
 
@@ -15798,7 +16338,6 @@ input mutationProductInput {
   publishedOn: String
   images: [mutationProduct_ImagesInput]
   layout: JSON
-  stripeProductID: String
   priceJSON: String
   enablePaywall: Boolean
   paywall: JSON
@@ -15847,7 +16386,6 @@ input mutationProductUpdateInput {
   publishedOn: String
   images: [mutationProductUpdate_ImagesInput]
   layout: JSON
-  stripeProductID: String
   priceJSON: String
   enablePaywall: Boolean
   paywall: JSON
@@ -15889,7 +16427,6 @@ enum ProductUpdate__status_MutationInput {
 
 input mutationOrderInput {
   orderedBy: String
-  stripePaymentIntentID: String
   total: Float!
   items: [mutationOrder_ItemsInput]
   updatedAt: String
@@ -15900,12 +16437,32 @@ input mutationOrder_ItemsInput {
   product: String
   price: Float
   quantity: Float
+  variant: mutationOrder_Items_VariantInput
   id: String
+}
+
+input mutationOrder_Items_VariantInput {
+  id: String
+  sku: String
+  price: Float
+  compareAtPrice: Float
+  stock: Float
+  size: mutationOrder_Items_Variant_SizeInput
+  color: mutationOrder_Items_Variant_ColorInput
+}
+
+input mutationOrder_Items_Variant_SizeInput {
+  title: String
+  value: String
+}
+
+input mutationOrder_Items_Variant_ColorInput {
+  title: String
+  value: String
 }
 
 input mutationOrderUpdateInput {
   orderedBy: String
-  stripePaymentIntentID: String
   total: Float
   items: [mutationOrderUpdate_ItemsInput]
   updatedAt: String
@@ -15916,7 +16473,28 @@ input mutationOrderUpdate_ItemsInput {
   product: String
   price: Float
   quantity: Float
+  variant: mutationOrderUpdate_Items_VariantInput
   id: String
+}
+
+input mutationOrderUpdate_Items_VariantInput {
+  id: String
+  sku: String
+  price: Float
+  compareAtPrice: Float
+  stock: Float
+  size: mutationOrderUpdate_Items_Variant_SizeInput
+  color: mutationOrderUpdate_Items_Variant_ColorInput
+}
+
+input mutationOrderUpdate_Items_Variant_SizeInput {
+  title: String
+  value: String
+}
+
+input mutationOrderUpdate_Items_Variant_ColorInput {
+  title: String
+  value: String
 }
 
 input mutationMediaInput {
@@ -15981,7 +16559,6 @@ input mutationUserInput {
   name: String
   roles: [User_roles_MutationInput]
   purchases: [String]
-  stripeCustomerID: String
   cart: mutationUser_CartInput
   skipSync: Boolean
   updatedAt: String
@@ -16038,7 +16615,6 @@ input mutationUserUpdateInput {
   name: String
   roles: [UserUpdate_roles_MutationInput]
   purchases: [String]
-  stripeCustomerID: String
   cart: mutationUserUpdate_CartInput
   skipSync: Boolean
   updatedAt: String
