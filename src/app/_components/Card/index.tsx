@@ -19,7 +19,7 @@ const priceFromJSON = (
       const parsed = JSON.parse(priceJSON)?.data[0]
       const priceValue = parsed.unit_amount
       const priceType = parsed.type
-      price.currency = parsed.currency === 'usd' ? '$' : 'Rs.'
+      price.currency = parsed.currency === 'inr' ? '₹' : 'Rs.'
       price.currentPrice = priceValue / 100
       price.originalPrice = parsed.original_price / 100 // Assuming original_price is available in your API
     } catch (e) {
