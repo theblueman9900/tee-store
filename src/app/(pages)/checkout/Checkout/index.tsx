@@ -9,6 +9,7 @@ import { Button } from '../../../_components/Button'
 import { Message } from '../../../_components/Message'
 import { priceFromJSON } from '../../../_components/Price'
 import { useCart } from '../../../_providers/Cart'
+import { useAuth } from '../../../_providers/Auth'
 
 const CheckoutPage = ({ _cartTotal }) => {
   console.log('🚀 ~ CheckoutPage ~ cartTotal:', _cartTotal)
@@ -30,6 +31,7 @@ const CheckoutPage = ({ _cartTotal }) => {
   const [error, setError] = React.useState<string | null>(null)
   const [isLoading, setIsLoading] = React.useState(false)
   const { cart, cartTotal } = useCart()
+  const { user } = useAuth()
 
   const handleSubmit = useCallback(
     async e => {
@@ -48,15 +50,19 @@ const CheckoutPage = ({ _cartTotal }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+            orderedBy: user?.id,
             total: cartTotal.raw,
             items: (cart?.items || [])?.map(({ product, quantity, variant }) => ({
               product: typeof product === 'string' ? product : product.id,
               quantity,
               variant,
-              price:
-                typeof product === 'object'
-                  ? priceFromJSON(product.priceJSON, variant?.price, 1, true)
-                  : undefined,
+              price: variant?.price
+                ? typeof variant === 'object'
+                  ? variant.price
+                  : undefined
+                : typeof product === 'object'
+                ? priceFromJSON(product.priceJSON, variant?.price, 1, true)
+                : undefined,
             })),
           }),
         })
@@ -82,7 +88,7 @@ const CheckoutPage = ({ _cartTotal }) => {
         router.push(`/order-confirmation?error=${encodeURIComponent(err.message)}`)
       }
     },
-    [ router, cart, cartTotal],
+    [router, cart, cartTotal],
   )
 
   return (
