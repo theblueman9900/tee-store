@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload/types'
+
 import { admins } from '../../access/admins'
 import { adminsOrLoggedIn } from '../../access/adminsOrLoggedIn'
 import { adminsOrCreatedBy } from './access/adminsOrCreatedBy'

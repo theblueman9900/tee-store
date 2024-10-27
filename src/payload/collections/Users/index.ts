@@ -8,7 +8,6 @@ import { customerProxy } from './endpoints/customer'
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
 import { loginAfterCreate } from './hooks/loginAfterCreate'
 import { resolveDuplicatePurchases } from './hooks/resolveDuplicatePurchases'
-import { CustomerSelect } from './ui/CustomerSelect'
 
 const Users: CollectionConfig = {
   slug: 'users',

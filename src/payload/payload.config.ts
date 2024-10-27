@@ -10,24 +10,21 @@ import { slateEditor } from '@payloadcms/richtext-slate' // editor-import
 import dotenv from 'dotenv'
 import path from 'path'
 import { buildConfig } from 'payload/config'
+
+import { Addresses } from './collections/Addresses'
 import Categories from './collections/Categories'
+import Colors from './collections/Colors'
 import { Media } from './collections/Media'
 import { Orders } from './collections/Orders'
 import { Pages } from './collections/Pages'
 import Products from './collections/Products'
+import Sizes from './collections/Sizes'
 import Users from './collections/Users'
-import BeforeDashboard from './components/BeforeDashboard'
-import BeforeLogin from './components/BeforeLogin'
 import { createPaymentIntent } from './endpoints/create-payment-intent'
-import { customersProxy } from './endpoints/customers'
-import { productsProxy } from './endpoints/products'
 import { seed } from './endpoints/seed'
 import { Footer } from './globals/Footer'
 import { Header } from './globals/Header'
 import { Settings } from './globals/Settings'
-import Sizes from './collections/Sizes'
-import Colors from './collections/Colors'
-import { Addresses } from './collections/Addresses'
 const favicon = '../../public/TBM-Logo.svg'
 const generateTitle: GenerateTitle = () => {
   return 'The Blue Man'
@@ -84,17 +81,7 @@ export default buildConfig({
   }),
   // database-adapter-config-end
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
-  collections: [
-    Pages,
-    Products,
-    Orders,
-    Media,
-    Categories,
-    Users,
-    Sizes,
-    Colors,
-    Addresses,
-  ],
+  collections: [Pages, Products, Orders, Media, Categories, Users, Sizes, Colors, Addresses],
   globals: [Settings, Header, Footer],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),

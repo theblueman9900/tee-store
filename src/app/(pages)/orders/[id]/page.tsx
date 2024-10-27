@@ -47,7 +47,7 @@ export default async function Order({ params: { id } }) {
 
   return (
     <Gutter className={classes.orders}>
-      <h1 style={{ padding: 10}}>
+      <h1 style={{ padding: 10 }}>
         {`Order : ${order.id}`}
         {/* <span className={classes.id}>{`${order.id}`}</span> */}
       </h1>

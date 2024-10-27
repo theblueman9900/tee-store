@@ -25,10 +25,9 @@ export const createPaymentIntent: PayloadHandler = async (req, res): Promise<voi
   }
 
   try {
-
     let total = 0
 
-    const hasItems = fullUser?.cart?.items?.length > 0
+    const hasItems = ((fullUser?.cart as any)?.items as any[])?.length > 0
 
     if (!hasItems) {
       throw new Error('No items in cart')
@@ -36,7 +35,7 @@ export const createPaymentIntent: PayloadHandler = async (req, res): Promise<voi
 
     // for each item in cart, lookup the product in Stripe and add its price to the total
     await Promise.all(
-      fullUser?.cart?.items?.map(async (item: CartItems[0]): Promise<null> => {
+      ((fullUser?.cart as any)?.items as any[])?.map(async (item: CartItems[0]): Promise<null> => {
         const { product, quantity } = item
 
         if (!quantity) {
@@ -47,7 +46,7 @@ export const createPaymentIntent: PayloadHandler = async (req, res): Promise<voi
           throw new Error('No Stripe Product ID')
         }
 
-        const prices : any = []
+        const prices: any = []
 
         if (prices.data.length === 0) {
           res.status(404).json({ error: 'There are no items in your cart to checkout with' })

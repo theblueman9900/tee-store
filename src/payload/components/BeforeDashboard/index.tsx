@@ -24,19 +24,13 @@ const BeforeDashboard: React.FC = () => {
         </li>
         <li>
           {'Head over to '}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a target="_blank" rel="noopener noreferrer">
             {'Stripe to obtain your API Keys'}
           </a>
           {
             '. Create a new account if needed, then copy them into your environment variables and restart your server. See the '
           }
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a target="_blank" rel="noopener noreferrer">
             {'README'}
           </a>
           {' for more details.'}

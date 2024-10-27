@@ -6,12 +6,12 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { Footer, Media } from '../../../../payload/payload-types'
+import { ThemeSelector } from '../../../_providers/Theme/ThemeSelector'
 import { inclusions, noHeaderFooterUrls, profileNavItems } from '../../../constants'
 import { Button } from '../../Button'
 import { Gutter } from '../../Gutter'
 
 import classes from './index.module.scss'
-import { ThemeSelector } from '../../../_providers/Theme/ThemeSelector'
 
 const FooterComponent = ({ footer }: { footer: Footer }) => {
   const pathname = usePathname()

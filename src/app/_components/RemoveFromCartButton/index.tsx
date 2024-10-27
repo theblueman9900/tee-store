@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 
-import { Product, Variant } from '../../../payload/payload-types'
+import { Product } from '../../../payload/payload-types'
 import { useCart } from '../../_providers/Cart'
 
 import classes from './index.module.scss'
@@ -9,7 +9,7 @@ import classes from './index.module.scss'
 export const RemoveFromCartButton: React.FC<{
   className?: string
   product: Product
-  variant?: Variant
+  variant?: any
 }> = props => {
   const { className, product, variant } = props
   const { deleteItemFromCart, isProductInCart } = useCart()

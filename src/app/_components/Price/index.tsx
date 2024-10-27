@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 
-import { Product, Variant } from '../../../payload/payload-types'
+import { Product } from '../../../payload/payload-types'
 
 import classes from './index.module.scss'
 
@@ -50,7 +50,7 @@ export const priceFromJSON = (
 export const Price: React.FC<{
   product: Product
   quantity?: number
-  variant?: Variant
+  variant?: any
   button?: 'addToCart' | 'removeFromCart' | false
 }> = props => {
   const { product, product: { priceJSON } = {}, button = 'addToCart', quantity, variant } = props

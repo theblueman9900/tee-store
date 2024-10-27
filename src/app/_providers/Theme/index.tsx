@@ -49,11 +49,7 @@ export const ThemeProvider: React.FC<{ children?: React.ReactNode }> = ({ childr
     setThemeState(themeToSet)
   }, [])
 
-  return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  )
+  return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>
 }
 
 export const useTheme = (): ThemeContextType => useContext(ThemeContext)

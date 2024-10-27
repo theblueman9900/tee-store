@@ -1,11 +1,12 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import { useState } from "react";
-import classes from './index.module.scss';
+import { useState } from 'react'
+import Image from 'next/image'
+
+import classes from './index.module.scss'
 
 const ProductImages = ({ items }: { items: any }) => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(0)
 
   return (
     <div className={classes.productImagesContainer}>
@@ -20,11 +21,7 @@ const ProductImages = ({ items }: { items: any }) => {
       </div>
       <div className={classes.thumbnailContainer}>
         {items.map((item: any, i: number) => (
-          <div
-            className={classes.thumbnail}
-            key={item._id}
-            onClick={() => setIndex(i)}
-          >
+          <div className={classes.thumbnail} key={item._id} onClick={() => setIndex(i)}>
             <Image
               src={item?.image?.url}
               alt=""
@@ -36,7 +33,7 @@ const ProductImages = ({ items }: { items: any }) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProductImages;
+export default ProductImages

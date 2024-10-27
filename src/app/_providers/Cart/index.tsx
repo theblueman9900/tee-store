@@ -10,7 +10,7 @@ import React, {
   useState,
 } from 'react'
 
-import { Product, User, Variant } from '../../../payload/payload-types'
+import { Product, User } from '../../../payload/payload-types'
 import { useAuth } from '../Auth'
 import { CartItem, cartReducer } from './reducer'
 
@@ -20,7 +20,7 @@ export type CartContext = {
   deleteItemFromCart: (item: CartItem) => void
   cartIsEmpty: boolean | undefined
   clearCart: () => void
-  isProductInCart: (product: Product, variant: Variant) => boolean
+  isProductInCart: (product: Product, variant: any) => boolean
   cartTotal: {
     formatted: string
     raw: number
@@ -184,7 +184,7 @@ export const CartProvider = props => {
   }, [user, cart])
 
   const isProductInCart = useCallback(
-    (incomingProduct: Product, incomingVariant: Variant): boolean => {
+    (incomingProduct: Product, incomingVariant: any): boolean => {
       let isInCart = false
       const { items: itemsInCart } = cart || {}
       if (Array.isArray(itemsInCart) && itemsInCart.length > 0) {
@@ -233,7 +233,7 @@ export const CartProvider = props => {
       cart?.items?.reduce((acc, item) => {
         return (
           acc +
-          (item?.variant && (item?.variant as Variant)?.price !== undefined
+          (item?.variant && (item?.variant as any)?.price !== undefined
             ? typeof item.variant === 'object'
               ? item?.variant?.price * (typeof item?.quantity === 'number' ? item?.quantity : 0)
               : 0

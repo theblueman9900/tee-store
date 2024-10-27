@@ -10,8 +10,6 @@ const logs = process.env.LOGS_STRIPE_PROXY === '1'
 // POST /api/users/:id/customer
 // body: { customer: Stripe.CustomerUpdateParams }
 export const customerProxy: PayloadHandler = async (req: PayloadRequest, res) => {
-  const { userID } = req.params
-
   if (!req.user) {
     if (logs) req.payload.logger.error({ err: `You are not authorized to access this customer` })
     res.status(401).json({ error: 'You are not authorized to access this customer' })
@@ -19,7 +17,6 @@ export const customerProxy: PayloadHandler = async (req: PayloadRequest, res) =>
   }
   try {
     let response: any
-    let customer: any | null = null
     res.status(200).json(response)
   } catch (error: unknown) {
     if (logs) req.payload.logger.error({ err: `Error using Stripe API: ${error}` })

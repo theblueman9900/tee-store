@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { Product, Variant } from '../../../payload/payload-types'
+import { Product } from '../../../payload/payload-types'
 import { useCart } from '../../_providers/Cart'
 import { Button, Props } from '../Button'
 
@@ -12,7 +12,7 @@ import classes from './index.module.scss'
 export const AddToCartButton: React.FC<{
   product: Product
   quantity?: number
-  variant?: Variant
+  variant?: any
   className?: string
   appearance?: Props['appearance']
 }> = props => {

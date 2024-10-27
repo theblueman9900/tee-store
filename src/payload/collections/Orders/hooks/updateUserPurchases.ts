@@ -13,13 +13,13 @@ export const updateUserPurchases: AfterChangeHook<Order> = async ({ doc, req, op
       id: orderedBy,
     })
 
-    if (user) {
+    if (user && user?.purchases !== undefined) {
       await payload.update({
         collection: 'users',
         id: orderedBy,
         data: {
           purchases: [
-            ...(user?.purchases?.map(purchase =>
+            ...((user?.purchases as any[]).map((purchase: any) =>
               typeof purchase === 'string' ? purchase : purchase.id,
             ) || []), // eslint-disable-line function-paren-newline
             ...(doc?.items?.map(({ product }) =>

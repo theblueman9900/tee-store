@@ -1,4 +1,4 @@
-import type { CartItems, Product, User, Variant } from '../../../payload/payload-types'
+import type { CartItems, User } from '../../../payload/payload-types'
 
 export type CartItem = CartItems[0]
 
@@ -43,8 +43,8 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
         const productSku = typeof item.variant === 'string' ? item.variant : item?.variant?.sku
         const indexInAcc = acc.findIndex(({ product, variant }) =>
           typeof product === 'string'
-            ? product === productId && (variant as Variant)?.sku === productSku
-            : product?.id === productId && (variant as Variant)?.sku === productSku,
+            ? product === productId && (variant as any)?.sku === productSku
+            : product?.id === productId && (variant as any)?.sku === productSku,
         ) // eslint-disable-line function-paren-newline
 
         if (indexInAcc > -1) {
@@ -75,8 +75,8 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
 
       const indexInCart = cart?.items?.findIndex(({ product, variant }) =>
         typeof product === 'string'
-          ? product === productId && (variant as Variant)?.sku === productSku
-          : product?.id === productId && (variant as Variant)?.sku === productSku,
+          ? product === productId && (variant as any)?.sku === productSku
+          : product?.id === productId && (variant as any)?.sku === productSku,
       ) // eslint-disable-line function-paren-newline
 
       let withAddedItem = [...(cart?.items || [])]
@@ -109,8 +109,8 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
 
       const indexInCart = cart?.items?.findIndex(({ product, variant }) =>
         typeof product === 'string'
-          ? product === productId && (variant as Variant)?.sku === productSku
-          : product?.id === productId && (variant as Variant)?.sku === productSku,
+          ? product === productId && (variant as any)?.sku === productSku
+          : product?.id === productId && (variant as any)?.sku === productSku,
       ) // eslint-disable-line function-paren-newline
 
       if (typeof indexInCart === 'number' && withDeletedItem.items && indexInCart > -1)

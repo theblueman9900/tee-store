@@ -1,17 +1,17 @@
 import React, { Fragment, Suspense } from 'react'
 
 import { Category, Media as TypeMedia, Product } from '../../../payload/payload-types'
+import Add from '../../_components/Add'
 import { AddToCartButton } from '../../_components/AddToCartButton'
+import { Blocks } from '../../_components/Blocks'
+import CustomizeProducts from '../../_components/CustomizeProducts'
 import { Gutter } from '../../_components/Gutter'
 import { Media } from '../../_components/Media'
 import { Price } from '../../_components/Price'
+import ProductImages from '../../_components/ProductImages'
+import Reviews from '../../_components/Recviews'
 
 import classes from './index.module.scss'
-import ProductImages from '../../_components/ProductImages'
-import CustomizeProducts from '../../_components/CustomizeProducts'
-import Add from '../../_components/Add'
-import Reviews from '../../_components/Recviews'
-import { Blocks } from '../../_components/Blocks'
 
 export const ProductHero: React.FC<{
   product: Product

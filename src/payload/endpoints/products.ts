@@ -1,8 +1,7 @@
 import type { PayloadHandler } from 'payload/config'
-import type { PayloadRequest } from 'payload/types's
+import type { PayloadRequest } from 'payload/types'
 
 import { checkRole } from '../collections/Users/checkRole'
-
 
 const logs = process.env.LOGS_STRIPE_PROXY === '1'
 

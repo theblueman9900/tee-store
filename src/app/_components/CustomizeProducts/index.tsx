@@ -1,8 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+
 import Add from '../Add'
-import classes from './index.module.scss';
+
+import classes from './index.module.scss'
 
 const CustomizeProducts = ({
   productId,
@@ -73,12 +75,8 @@ const CustomizeProducts = ({
                   onClick={clickHandler}
                   key={choice.description}
                 >
-                  {selected && (
-                    <div className={classes.colorChoiceSelected} />
-                  )}
-                  {disabled && (
-                    <div className={classes.colorChoiceDisabled} />
-                  )}
+                  {selected && <div className={classes.colorChoiceSelected} />}
+                  {disabled && <div className={classes.colorChoiceDisabled} />}
                 </li>
               ) : (
                 <li

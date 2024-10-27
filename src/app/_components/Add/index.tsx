@@ -1,20 +1,18 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import classes from './index.module.scss'
-import { AddToCartButton } from '../AddToCartButton'
-import {
-  Category,
-  Media as TypeMedia,
-  Product,
-  Variant,
-  GroupedVariants,
-} from '../../../payload/payload-types'
 
-const groupVariantsByColor = (variants: Variant[]): GroupedVariants[] => {
-  return variants.reduce((acc: GroupedVariants[], variant) => {
+import { Color, Media as TypeMedia, Product, Size } from '../../../payload/payload-types'
+import { AddToCartButton } from '../AddToCartButton'
+
+import classes from './index.module.scss'
+
+const groupVariantsByColor = (variants: any[]): any[] => {
+  return variants.reduce((acc: any[], variant) => {
     // Check if the color group already exists
-    const colorGroup = acc.find(group => group.color.value === variant.color.value)
+    const colorGroup = acc.find(
+      group => (group.color as Color).value === (variant.color as Color).value,
+    )
 
     if (colorGroup) {
       // Add the variant to the existing group
@@ -22,8 +20,8 @@ const groupVariantsByColor = (variants: Variant[]): GroupedVariants[] => {
     } else {
       // Create a new group for the color
       acc.push({
-        color: variant.color,
-        variants: [variant],
+        color: variant.color as Color,
+        variants: [variant as any],
       })
     }
 
@@ -43,16 +41,16 @@ const Add = ({
 }) => {
   const [quantity, setQuantity] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
-  const [groupedVariants, setGroupedVariants] = useState<GroupedVariants[]>(
-    groupVariantsByColor(product.variants as Variant[]),
+  const [groupedVariants, setGroupedVariants] = useState<any[]>(
+    groupVariantsByColor(product.variants as any[]),
   )
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: string]: string
   }>({})
-  const [selectedVariant, setSelectedVariant] = useState<Variant>()
+  const [selectedVariant, setSelectedVariant] = useState<any>()
 
-  const [selectedColor, setSelectedColor] = useState<GroupedVariants>(groupedVariants[0])
-  const [selectedSize, setSelectedSize] = useState<Variant>(selectedColor?.variants[0])
+  const [selectedColor, setSelectedColor] = useState<any>(groupedVariants[0])
+  const [selectedSize, setSelectedSize] = useState<any>(selectedColor?.variants[0])
 
   useEffect(() => {
     setSelectedSize(selectedColor?.variants[0])
@@ -95,7 +93,8 @@ const Add = ({
               //   [option.name!]: choice.description!,
               // })
               const disabled = false
-              const selected = selectedColor?.color.value === choice.color.value
+              const selected =
+                (selectedColor?.color as Color).value === (choice.color as Color).value
 
               const clickHandler = disabled ? undefined : () => setSelectedColor(choice)
 
@@ -107,11 +106,11 @@ const Add = ({
                     borderRadius: '9999px', // rounded-full -> full border radius
                     border: '1px solid #D1D5DB', // ring-1 ring-gray-300 -> 1px solid with gray color
                     position: 'relative',
-                    backgroundColor: choice.color.value,
+                    backgroundColor: (choice.color as Color).value,
                     cursor: 'pointer',
                   }}
                   onClick={clickHandler}
-                  key={choice.color.title}
+                  key={(choice.color as Color).title}
                 >
                   {selected && (
                     <div
@@ -195,10 +194,10 @@ const Add = ({
                         : `var(--theme-elevation-900)`,
                     boxShadow: disabled ? 'none' : '',
                   }}
-                  key={choice.size.title}
+                  key={(choice.size as Size).title}
                   onClick={clickHandler}
                 >
-                  {choice.size.title}
+                  {(choice.size as Size).title}
                 </li>
               )
             })}

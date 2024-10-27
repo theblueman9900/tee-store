@@ -1,7 +1,8 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+
 import classes from './index.module.scss'
 
 const Reviews: React.FC<{ productId: string }> = ({ productId }) => {

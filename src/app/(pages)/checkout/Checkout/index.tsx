@@ -1,15 +1,14 @@
 'use client'
 
-import React, { useCallback, useEffect, useRef } from 'react'
-import { useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { Order } from '../../../../payload/payload-types'
 import { Button } from '../../../_components/Button'
 import { Message } from '../../../_components/Message'
 import { priceFromJSON } from '../../../_components/Price'
-import { useCart } from '../../../_providers/Cart'
 import { useAuth } from '../../../_providers/Auth'
+import { useCart } from '../../../_providers/Cart'
 
 const CheckoutPage = ({ _cartTotal }) => {
   console.log('🚀 ~ CheckoutPage ~ cartTotal:', _cartTotal)

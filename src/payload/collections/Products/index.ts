@@ -10,7 +10,6 @@ import { populateArchiveBlock } from '../../hooks/populateArchiveBlock'
 import { checkUserPurchases } from './access/checkUserPurchases'
 import { deleteProductFromCarts } from './hooks/deleteProductFromCarts'
 import { revalidateProduct } from './hooks/revalidateProduct'
-import { ProductSelect } from './ui/ProductSelect'
 
 const Products: CollectionConfig = {
   slug: 'products',
