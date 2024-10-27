@@ -3,7 +3,6 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { Order } from '../../../../../payload/payload-types'
 import { HR } from '../../../../_components/HR'
 import { Media } from '../../../../_components/Media'
 import { Price } from '../../../../_components/Price'
@@ -12,8 +11,9 @@ import { getMeUser } from '../../../../_utilities/getMeUser'
 import { mergeOpenGraph } from '../../../../_utilities/mergeOpenGraph'
 
 import classes from './index.module.scss'
+import { Order } from '../../../../../payload/payload-types'
 
-export default async function Order({ params: { id } }) {
+export default async function OrderPage({ params: { id } }) {
   const { token } = await getMeUser({
     nullUserRedirect: `/login?error=${encodeURIComponent(
       'You must be logged in to view this order.',
@@ -57,8 +57,82 @@ export default async function Order({ params: { id } }) {
           {new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'inr',
-          }).format(order.total / 100)}
+          }).format(order.total)}
         </p>
+
+        <p className={classes.total}>Address:</p>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`Receiver Name: ${order.address.name}`}</p>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`Email: ${order.address.email}`}</p>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`Phone: ${order.address.phone}`}</p>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`Street: ${order.address.street}`}</p>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`City: ${order.address.city}`}</p>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`State: ${order.address.state}`}</p>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`Country: ${order.address.country}`}</p>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`Pincode: ${order.address.postalCode}`}</p>
+        </div>
       </div>
 
       <div className={classes.order}>

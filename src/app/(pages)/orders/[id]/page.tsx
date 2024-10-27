@@ -47,11 +47,84 @@ export default async function Order({ params: { id } }) {
 
   return (
     <Gutter className={classes.orders}>
-      <h1>
-        {`Order`}
-        <span className={classes.id}>{`${order.id}`}</span>
+      <h1 style={{ padding: 10}}>
+        {`Order : ${order.id}`}
+        {/* <span className={classes.id}>{`${order.id}`}</span> */}
       </h1>
       <div className={classes.itemMeta}>
+        <p className={classes.total}>Address:</p>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`Receiver Name: ${order.address.name}`}</p>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`Email: ${order.address.email}`}</p>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`Phone: ${order.address.phone}`}</p>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`Street: ${order.address.street}`}</p>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`City: ${order.address.city}`}</p>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`State: ${order.address.state}`}</p>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`Country: ${order.address.country}`}</p>
+          <p
+            style={{
+              width: '49%',
+
+              // border: '1px solid var(--theme-elevation-900)',
+              borderRadius: '5px',
+            }}
+          >{`Pincode: ${order.address.postalCode}`}</p>
+        </div>
         <p>{`ID: ${order.id}`}</p>
         <p>{`Ordered On: ${formatDateTime(order.createdAt)}`}</p>
         <p className={classes.total}>
@@ -59,9 +132,10 @@ export default async function Order({ params: { id } }) {
           {new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'inr',
-          }).format(order.total / 100)}
+          }).format(order.total)}
         </p>
       </div>
+
       <HR />
       <div className={classes.order}>
         <h4 className={classes.orderItems}>Items</h4>

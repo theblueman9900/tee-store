@@ -44,31 +44,6 @@ export const CheckoutPage: React.FC<{
   useEffect(() => {
     if (user && cart && hasMadePaymentIntent.current === false) {
       hasMadePaymentIntent.current = true
-
-      const makeIntent = async () => {
-        try {
-          const paymentReq = await fetch(
-            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/create-payment-intent`,
-            {
-              method: 'POST',
-              credentials: 'include',
-            },
-          )
-
-          const res = await paymentReq.json()
-
-          if (res.error) {
-            setError(res.error)
-          } else if (res.client_secret) {
-            setError(null)
-            setClientSecret(res.client_secret)
-          }
-        } catch (e) {
-          setError('Something went wrong.')
-        }
-      }
-
-      makeIntent()
     }
   }, [cart, user])
 
