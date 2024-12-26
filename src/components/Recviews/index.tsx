@@ -43,7 +43,7 @@ const Reviews: React.FC<{ productId: string }> = ({ productId }) => {
           {/* USER */}
           <div className={classes.userInfo}>
             <Image
-              src={review?.customer?.avatar_url}
+              src={`${process.env.NEXT_PUBLIC_SERVER_URL}${review?.customer?.avatar_url}`}
               alt=""
               width={32}
               height={32}
@@ -64,7 +64,7 @@ const Reviews: React.FC<{ productId: string }> = ({ productId }) => {
           <div className={classes.media}>
             {review?.media?.map((media: any) => (
               <Image
-                src={media?.url}
+                src={`${process.env.NEXT_PUBLIC_SERVER_URL}${media?.url}`}
                 key={media?.id}
                 alt=""
                 width={100}

@@ -26,7 +26,7 @@ const FooterComponent = ({ footer }: { footer: Footer }) => {
           {inclusions.map((inclusion) => (
             <li key={inclusion.title}>
               <Image
-                src={inclusion.icon}
+                src={`${process.env.NEXT_PUBLIC_SERVER_URL}${inclusion.icon}`}
                 alt={inclusion.title}
                 width={36}
                 height={36}
@@ -62,7 +62,7 @@ const FooterComponent = ({ footer }: { footer: Footer }) => {
                       >
                         {icon ? (
                           <Image
-                            src={icon?.url!}
+                            src={`${process.env.NEXT_PUBLIC_SERVER_URL}${icon?.url!}`}
                             alt={item.link.label}
                             width={24}
                             height={24}

@@ -13,11 +13,12 @@ RUN npm install -g pnpm
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
+# Copy environment variables
+COPY .env .env
+
 # Copy the rest of the application code
 COPY . .
 
-# Copy environment variables
-COPY .env .env
 
 # Build the Next.js application
 RUN pnpm build

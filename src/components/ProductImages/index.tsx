@@ -14,7 +14,7 @@ const ProductImages = ({ items }: { items: any }) => {
     <div className={classes.productImagesContainer}>
       <div className={classes.mainImageContainer}>
         <Image
-          src={images[index]?.image?.url}
+          src={`${process.env.NEXT_PUBLIC_SERVER_URL}${images[index]?.image?.url}`}
           alt=""
           fill
           sizes="50vw"
@@ -25,7 +25,7 @@ const ProductImages = ({ items }: { items: any }) => {
         {images.map((item: any, i: number) => (
           <div className={classes.thumbnail} key={i} onClick={() => setIndex(i)}>
             <Image
-              src={item?.image?.url}
+              src={`${process.env.NEXT_PUBLIC_SERVER_URL}${item?.image?.url}`}
               alt=""
               fill
               sizes="30vw"

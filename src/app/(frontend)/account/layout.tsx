@@ -22,7 +22,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <li key={item.title}>
                   <Link href={item.url} className={classes.navItem}>
                     <Image
-                      src={item.icon}
+                      src={`${process.env.NEXT_PUBLIC_SERVER_URL}${item.icon}`}
                       alt={item.title}
                       width={24}
                       height={24}
