@@ -1,44 +1,26 @@
-# Use Node.js base image
-FROM node:18.18-alpine AS base
+# Use an official Node.js runtime as the base image
+FROM node:18-slim
 
-# Install pnpm globally in the base image
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and pnpm-lock.yaml
+COPY package.json pnpm-lock.yaml ./
+
+# Install pnpm globally
 RUN npm install -g pnpm
 
-# Builder stage
-FROM base AS builder
+# Install dependencies
+RUN pnpm install --frozen-lockfile
 
-WORKDIR /home/node/app
-
-# Copy only the files required for dependency installation
-COPY package.json pnpm-lock.yaml ./
-
-# Install dependencies and build the project
-RUN pnpm install
+# Copy the rest of the application code
 COPY . .
 
+# Build the Next.js application
 RUN pnpm build
 
-# Runtime stage
-FROM base AS runtime
-
-ENV NODE_ENV=production
-
-WORKDIR /home/node/app
-
-# Copy only the necessary files for production
-COPY package.json pnpm-lock.yaml ./
-
-# Install production dependencies
-RUN pnpm install --prod
-
-# Copy the built application from the builder stage
-COPY --from=builder /home/node/app/.next ./.next
-COPY --from=builder /home/node/app/public ./public
-COPY --from=builder /home/node/app/next.config.js ./next.config.js
-
-# Expose the application port
+# Expose the port Next.js runs on
 EXPOSE 3000
 
 # Start the application
 CMD ["pnpm", "start"]
-
